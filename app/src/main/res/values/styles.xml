@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextViewStyleDialogs">
+        <item name="android:textColor">#373636</item>
+        <item name="android:shadowColor">#302F2F</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+</resources>
