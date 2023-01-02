@@ -16,6 +16,18 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="spinnerLocation">
+        <item>S1</item>
+        <item>S2</item>
+        <item>S3</item>
+        <item>S4</item>
+        <item>S5</item>
+        <item>S6</item>
+        <item>S7</item>
+        <item>S8</item>
+        <item>S9</item>
+        <item>S10</item>
+    </string-array>
     <string-array name="spinnerPublishingYears">
         <item>1990</item>
         <item>1991</item>

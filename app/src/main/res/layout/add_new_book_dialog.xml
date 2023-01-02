@@ -146,18 +146,25 @@
                 android:text="Location: "
                 style="@style/TextViewStyleDialogs"/>
 
-            <EditText
-                android:id="@+id/location"
-                android:layout_width="200dp"
+            <Spinner
+                android:id="@+id/spinnerLocation"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                style="@style/TextViewStyleDialogs"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:entries="@array/spinnerLocation" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Publishing year: "
+                style="@style/TextViewStyleDialogs"/>
 
             <Spinner
                 android:id="@+id/spinnerPublishingYear"
@@ -187,8 +194,6 @@
                 android:minHeight="48dp"
                 style="@style/TextViewStyleDialogs"/>
         </LinearLayout>
-
-
 
         <Button
             android:id="@+id/addButton"
