@@ -57,10 +57,10 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
             tvPublisher.setText(book.getPublisher());
             tvAvailable = findViewById(R.id.tvAvailable);
             if (book.isAvailable()) {
-                tvAvailable.setText("yes");
+                tvAvailable.setText("Yes");
                 tvAvailable.setTextColor(Color.parseColor("#32CD32"));
             } else {
-                tvAvailable.setText("no");
+                tvAvailable.setText("No");
                 tvAvailable.setTextColor(Color.parseColor("#C70039"));
             }
 

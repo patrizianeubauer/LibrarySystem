@@ -27,14 +27,17 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView nameText;
         private recyclerAdapterReturns.DetailsListener detailsListener;
-        private Button button;
+        private Button buttonReturn;
+        private Button buttonExtend;
 
         public MyViewHolder(final View view, recyclerAdapterReturns.DetailsListener detailsListener) {
             super(view);
             nameText = view.findViewById(R.id.textView);
             this.detailsListener = detailsListener;
-            button = view.findViewById(R.id.buttonDetails);
-            button.setOnClickListener(this);
+            buttonReturn = view.findViewById(R.id.buttonReturn);
+            buttonExtend = view.findViewById(R.id.buttonExtend);
+            buttonReturn.setOnClickListener(this);
+            buttonExtend.setOnClickListener(this);
         }
 
         @Override

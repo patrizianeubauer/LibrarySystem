@@ -10,14 +10,24 @@ public class BorrowingProcess implements Serializable {
     private User user;
     private Date dateOfIssue;
     private Date returnDate;
+    private float fees;
 
-    public BorrowingProcess(User name, Date dateOfIssue) {
+    public float getFees() {
+        return fees;
+    }
+
+    public void setFees(float fees) {
+        this.fees = fees;
+    }
+
+    public BorrowingProcess(User name, Date dateOfIssue, float fees) {
         this.user = name;
         this.dateOfIssue = dateOfIssue;
         Calendar cal = new GregorianCalendar();
         cal.setTime(dateOfIssue);
         cal.add(Calendar.DAY_OF_MONTH, 30);
         this.returnDate = cal.getTime();
+        this.fees = fees;
     }
 
     public User getUser() {

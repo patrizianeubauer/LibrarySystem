@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,6 +80,24 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
 
     @Override
     public void onDetailClick(int position) {
+
+        View view = this.findViewById(R.id.returnItems);
+        switch (view.getId()) {
+            case  R.id.buttonReturn: {
+                System.out.println("Return");
+                // do something for button 1 click
+                break;
+            }
+
+            case R.id.buttonExtend: {
+                System.out.println("Extend");
+                // do something for button 2 click
+                break;
+            }
+            default: break;
+
+        }
+
         for(int i = 0; i < bookList.size(); i++) {
             if(bookList.get(i).getTitle().equals(book.getTitle())) {
                 for (BorrowingProcess bp : book.getBorrowers()) {
