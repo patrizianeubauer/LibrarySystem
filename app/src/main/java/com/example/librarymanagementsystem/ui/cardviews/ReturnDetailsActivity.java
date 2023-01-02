@@ -7,8 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +37,9 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
     private recyclerAdapterReturns adapter;
     private Book book;
     private ArrayList<Book> bookList;
+    private AlertDialog dialog;
+    private TextView tFees;
+    private View viewFeesDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,33 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
         recyclerView = findViewById(R.id.recyclerView);
         setBookInfo();
         setAdapter();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Fees:");
+        viewFeesDialog = getLayoutInflater().inflate(R.layout.fees_dialog, null);
+        tFees = viewFeesDialog.findViewById(R.id.tvFees);
+        Button bAdd, bCancel;
+        bAdd = viewFeesDialog.findViewById(R.id.addButton);
+        bCancel = viewFeesDialog.findViewById(R.id.cancelButton);
+
+        bAdd.setOnClickListener(view -> {
+            Toast.makeText(
+                            ReturnDetailsActivity.this,
+                            "Fees paid!",
+                            Toast.LENGTH_SHORT)
+                    .show();
+            dialog.dismiss();
+
+            Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
+            startActivity(intent);
+            adapter.notifyDataSetChanged();
+        });
+
+        bCancel.setOnClickListener(view1 -> dialog.dismiss());
+        builder.setView(viewFeesDialog);
+        dialog = builder.create();
     }
 
     @Override
@@ -89,44 +122,51 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
                 for (BorrowingProcess bp : book.getBorrowers()) {
                     if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
                         bookList.get(i).removeABP(bp);
-                        if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
-                            bookList.get(i).setAvailable(true);
-                        }
 
-                        DataHandling.printAll();
-                        adapter.notifyDataSetChanged();
+                        if (bp.getFees() > 0.0f) {
+                            tFees.setText(bp.getFees()+" €");
+                            dialog.show();
+                            if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
+                                bookList.get(i).setAvailable(true);
+                            }
+                        } else {
+                            if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
+                                bookList.get(i).setAvailable(true);
+                            }
+                            Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            adapter.notifyDataSetChanged();
+                        }
                         break;
                     }
                 }
             }
         }
-        Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
-        startActivity(intent);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onDetailClickExtend(int position) {
 
-            for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).getTitle().equals(book.getTitle())) {
-                    for (BorrowingProcess bp : book.getBorrowers()) {
-                        if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
-                            System.out.println(bp.getExtensionCounter());
-                            if (bp.getExtensionCounter() > 1) {
-                                Toast.makeText(ReturnDetailsActivity.this, "Extension not possible!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                bookList.get(i).incrementCounterinABP(bp);
-                                bookList.get(i).updateReturnDate(bp);
-                                Toast.makeText(ReturnDetailsActivity.this, "Extension successful!", Toast.LENGTH_SHORT).show();
-                                adapter.notifyDataSetChanged();
-                            }
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getTitle().equals(book.getTitle())) {
+                for (BorrowingProcess bp : book.getBorrowers()) {
+                    if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                        System.out.println(bp.getExtensionCounter());
+                        if (bp.getExtensionCounter() > 1) {
+                            Toast.makeText(ReturnDetailsActivity.this, "Extension not possible!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            bookList.get(i).incrementCounterinABP(bp);
+                            bookList.get(i).updateReturnDate(bp);
+                            Toast.makeText(ReturnDetailsActivity.this, "Extension successful!", Toast.LENGTH_SHORT).show();
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 }
             }
+        }
 
         Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
         startActivity(intent);

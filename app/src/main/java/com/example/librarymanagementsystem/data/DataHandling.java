@@ -17,8 +17,8 @@ public class DataHandling {
         ArrayList<BorrowingProcess> names1 = new ArrayList<>();
         User u1 = new User("Herbert", "Fuchs", "h.f@gmx.at");
         User u2 = new User("Laura", "Hera", "hera.l@gmx.at");
-        BorrowingProcess bp1 = new BorrowingProcess(u1, new Date(), 0.0f);
-        BorrowingProcess bp2 = new BorrowingProcess(u2, new Date(), 0.0f);
+        BorrowingProcess bp1 = new BorrowingProcess(u1, new Date(), 2.0f);
+        BorrowingProcess bp2 = new BorrowingProcess(u2, new Date(), 6.0f);
         names1.add(bp1);
         names1.add(bp2);
 
@@ -26,8 +26,8 @@ public class DataHandling {
         User u3 = new User("Simone", "Herre", "herre.simone@gmx.at");
         User u4 = new User("Eward", "Alle", "alleeward@gmx.at");
 
-        names2.add(new BorrowingProcess(u3, new Date(), 0.0f));
-        names2.add(new BorrowingProcess(u4, new Date(), 0.0f));
+        names2.add(new BorrowingProcess(u3, new Date(), 2.0f));
+        names2.add(new BorrowingProcess(u4, new Date(), 6.0f));
 
         userList.add(u1);
         userList.add(u2);
