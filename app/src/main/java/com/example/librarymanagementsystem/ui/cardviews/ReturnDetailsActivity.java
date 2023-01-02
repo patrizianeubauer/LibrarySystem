@@ -1,6 +1,7 @@
 package com.example.librarymanagementsystem.ui.cardviews;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,27 +82,34 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
     }
 
     @Override
-    public void onDetailClick(int position) {
-        View view = this.findViewById(R.id.returnItems);
-
-        if (view.findViewById(R.id.buttonReturn).isSelected()) {
-            for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).getTitle().equals(book.getTitle())) {
-                    for (BorrowingProcess bp : book.getBorrowers()) {
-                        if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
-                            bookList.get(i).removeABP(bp);
-                            if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable())
-                                bookList.get(i).setAvailable(true);
-                            DataHandling.printAll();
-                            adapter.notifyDataSetChanged();
-                            break;
+    public void onDetailClickReturn(int position) {
+        System.out.println("buttonReturn");
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getTitle().equals(book.getTitle())) {
+                for (BorrowingProcess bp : book.getBorrowers()) {
+                    if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                        bookList.get(i).removeABP(bp);
+                        if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
+                            bookList.get(i).setAvailable(true);
                         }
+
+                        DataHandling.printAll();
+                        adapter.notifyDataSetChanged();
+                        break;
                     }
                 }
             }
-            Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
 
-        } else {
+        Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
+        startActivity(intent);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDetailClickExtend(int position) {
+
             for (int i = 0; i < bookList.size(); i++) {
                 if (bookList.get(i).getTitle().equals(book.getTitle())) {
                     for (BorrowingProcess bp : book.getBorrowers()) {
@@ -119,7 +127,6 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
                     }
                 }
             }
-        }
 
         Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
         startActivity(intent);

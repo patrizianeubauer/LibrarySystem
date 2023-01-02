@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.librarymanagementsystem.R;
+import com.example.librarymanagementsystem.data.DataHandling;
+import com.example.librarymanagementsystem.model.Book;
+import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
 import java.util.ArrayList;
@@ -42,7 +45,14 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
         @Override
         public void onClick(View view) {
-            this.detailsListener.onDetailClick(getAdapterPosition());
+            switch(view.getId()) {
+                case R.id.buttonExtend:
+                    this.detailsListener.onDetailClickExtend(getAdapterPosition());
+                    break;
+                case R.id.buttonReturn:
+                    this.detailsListener.onDetailClickReturn(getAdapterPosition());
+                    break;
+            }
         }
     }
 
@@ -59,6 +69,17 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
         String nachname = userList.get(position).getNachname();
         String name = vornamename + " " + nachname;
         holder.nameText.setText(name);
+
+        ArrayList<Book> books = DataHandling.getBookList();
+        for (Book book : books) {
+            for (BorrowingProcess bp : book.getBorrowers()) {
+                if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                    if (bp.getExtensionCounter() > 1) {
+                        holder.buttonExtend.setEnabled(false);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -67,7 +88,8 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
     }
 
     public interface DetailsListener {
-        void onDetailClick(int position);
+        void onDetailClickExtend(int position);
+        void onDetailClickReturn(int position);
     }
 
 }
