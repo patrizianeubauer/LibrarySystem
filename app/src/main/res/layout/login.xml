@@ -54,21 +54,21 @@
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
                 android:hint="Password"
-                android:padding="10dp"
-                android:textColor="@color/black"
                 android:inputType="textPassword"
-                />
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
             <CheckBox
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:text="Keep me Signed in"
-                android:textColor="@color/black"
-                android:hint="#FFFBF6"
                 android:layout_marginTop="25dp"
                 android:buttonTint="@color/black"
-                />
+                android:hint="#FFFBF6"
+                android:text="Keep me Signed in"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="100dp"

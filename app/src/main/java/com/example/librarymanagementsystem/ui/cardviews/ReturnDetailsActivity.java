@@ -22,6 +22,9 @@ import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ReturnDetailsActivity extends AppCompatActivity implements recyclerAdapterReturns.DetailsListener {
 
@@ -41,7 +44,6 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
         }
 
         bookList = DataHandling.getBookList();
-
         userList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -80,31 +82,46 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
 
     @Override
     public void onDetailClick(int position) {
-
         View view = this.findViewById(R.id.returnItems);
 
-        if(view.findViewById(R.id.buttonReturn).isSelected()) {
-            System.out.println("Return");
-        } else {
-            System.out.println("Extend");
-        }
+        if (view.findViewById(R.id.buttonReturn).isSelected()) {
+            for (int i = 0; i < bookList.size(); i++) {
+                if (bookList.get(i).getTitle().equals(book.getTitle())) {
+                    for (BorrowingProcess bp : book.getBorrowers()) {
+                        if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                            bookList.get(i).removeABP(bp);
+                            if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable())
+                                bookList.get(i).setAvailable(true);
+                            DataHandling.printAll();
+                            adapter.notifyDataSetChanged();
+                            break;
+                        }
+                    }
+                }
+            }
+            Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
 
-        for(int i = 0; i < bookList.size(); i++) {
-            if(bookList.get(i).getTitle().equals(book.getTitle())) {
-                for (BorrowingProcess bp : book.getBorrowers()) {
-                    if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
-                        bookList.get(i).removeABP(bp);
-                        if(bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) bookList.get(i).setAvailable(true);
-                        DataHandling.printAll();
-                        adapter.notifyDataSetChanged(); break;
+        } else {
+            for (int i = 0; i < bookList.size(); i++) {
+                if (bookList.get(i).getTitle().equals(book.getTitle())) {
+                    for (BorrowingProcess bp : book.getBorrowers()) {
+                        if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                            System.out.println(bp.getExtensionCounter());
+                            if (bp.getExtensionCounter() > 1) {
+                                Toast.makeText(ReturnDetailsActivity.this, "Extension not possible!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                bookList.get(i).incrementCounterinABP(bp);
+                                bookList.get(i).updateReturnDate(bp);
+                                Toast.makeText(ReturnDetailsActivity.this, "Extension successful!", Toast.LENGTH_SHORT).show();
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
                     }
                 }
             }
         }
 
         Intent intent = new Intent(ReturnDetailsActivity.this, MainActivity.class);
-        Toast.makeText(ReturnDetailsActivity.this, "Returning was successful!", Toast.LENGTH_SHORT).show();
-
         startActivity(intent);
         adapter.notifyDataSetChanged();
     }

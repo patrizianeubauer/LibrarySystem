@@ -11,14 +11,7 @@ public class BorrowingProcess implements Serializable {
     private Date dateOfIssue;
     private Date returnDate;
     private float fees;
-
-    public float getFees() {
-        return fees;
-    }
-
-    public void setFees(float fees) {
-        this.fees = fees;
-    }
+    private int extensionCounter;
 
     public BorrowingProcess(User name, Date dateOfIssue, float fees) {
         this.user = name;
@@ -28,8 +21,24 @@ public class BorrowingProcess implements Serializable {
         cal.add(Calendar.DAY_OF_MONTH, 30);
         this.returnDate = cal.getTime();
         this.fees = fees;
+        this.extensionCounter = 1;
     }
 
+    public int getExtensionCounter() {
+        return extensionCounter;
+    }
+
+    public void incrementExtensionCounter() {
+        this.extensionCounter = this.extensionCounter + 1;
+    }
+
+    public float getFees() {
+        return fees;
+    }
+
+    public void setFees(float fees) {
+        this.fees = fees;
+    }
     public User getUser() {
         return user;
     }

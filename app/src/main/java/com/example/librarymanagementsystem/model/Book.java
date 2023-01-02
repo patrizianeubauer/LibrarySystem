@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Book implements Serializable {
     private String title;
@@ -91,6 +93,26 @@ public class Book implements Serializable {
         for(int i = 0; i < borrowers.size(); i++) {
             if(borrowers.get(i).getUser().getNachname().equals(bp.getUser().getNachname())) {
                 borrowers.remove(i);
+            }
+        }
+    }
+
+    public void incrementCounterinABP(BorrowingProcess bp) {
+
+        for(int i = 0; i < borrowers.size(); i++) {
+            if(borrowers.get(i).getUser().getNachname().equals(bp.getUser().getNachname())) {
+                borrowers.get(i).incrementExtensionCounter();
+            }
+        }
+    }
+
+    public void updateReturnDate(BorrowingProcess bp) {
+        for(int i = 0; i < borrowers.size(); i++) {
+            if(borrowers.get(i).getUser().getNachname().equals(bp.getUser().getNachname())) {
+                Calendar cal = new GregorianCalendar();
+                cal.setTime(new Date());
+                cal.add(Calendar.DAY_OF_MONTH, 14);
+                borrowers.get(i).setReturnDate(cal.getTime());
             }
         }
     }
