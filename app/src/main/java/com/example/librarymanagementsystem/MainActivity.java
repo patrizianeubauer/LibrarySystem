@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -20,16 +19,11 @@ import com.example.librarymanagementsystem.ui.cardviews.AllBooksActivity;
 import com.example.librarymanagementsystem.ui.cardviews.BorrowActivity;
 import com.example.librarymanagementsystem.ui.cardviews.ReturnActivity;
 import com.example.librarymanagementsystem.ui.cardviews.SearchActivity;
-import com.example.librarymanagementsystem.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter new book:");
-        View viewAddDialog = getLayoutInflater().inflate(R.layout.add_dialog, null);
+        View viewAddDialog = getLayoutInflater().inflate(R.layout.add_new_book_dialog, null);
         EditText eTitle = viewAddDialog.findViewById(R.id.title);
         EditText eISBN = viewAddDialog.findViewById(R.id.isbn);
         EditText eAuthor = viewAddDialog.findViewById(R.id.author);
         EditText eNOP = viewAddDialog.findViewById(R.id.numberOfPages);
         Spinner sQuantity = viewAddDialog.findViewById(R.id.spinnerQuantity);
         Spinner sGenre = viewAddDialog.findViewById(R.id.spinnerGenre);
-        EditText eLocation = viewAddDialog.findViewById(R.id.location);
+        Spinner sLocation = viewAddDialog.findViewById(R.id.spinnerLocation);
         Spinner sPublishingYear = viewAddDialog.findViewById(R.id.spinnerPublishingYear);
         EditText ePublisher = viewAddDialog.findViewById(R.id.publisher);
         Button bAdd, bCancel;
@@ -114,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             String title = eTitle.getText().toString();
             String isbn = eISBN.getText().toString();
             String author = eAuthor.getText().toString();
-            String location = eLocation.getText().toString();
+            String location = sLocation.getSelectedItem().toString();
             String publisher = ePublisher.getText().toString();
 
             if (title.equals("") || isbn.equals("") || eNOP.getText().toString().equals("") || author.equals("") || location.equals("") || publisher.equals("")) {
@@ -124,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT)
                         .show();
             } else {
-                Book newBook = new Book(eTitle.getText().toString(), eISBN.getText().toString(), eAuthor.getText().toString(), Integer.parseInt(sQuantity.getSelectedItem().toString()), Integer.parseInt(eNOP.getText().toString()), sGenre.getSelectedItem().toString(), eLocation.getText().toString(), new Date(), ePublisher.getText().toString(), new ArrayList<BorrowingProcess>());
+                Book newBook = new Book(eTitle.getText().toString(), eISBN.getText().toString(), eAuthor.getText().toString(), Integer.parseInt(sQuantity.getSelectedItem().toString()), Integer.parseInt(eNOP.getText().toString()), sGenre.getSelectedItem().toString(), sLocation.getSelectedItem().toString(), new Date(), ePublisher.getText().toString(), new ArrayList<BorrowingProcess>());
                 DataHandling.bookList.add(newBook);
                 Toast.makeText(
                                 MainActivity.this,
