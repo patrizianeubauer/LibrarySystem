@@ -40,6 +40,10 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         spinner = findViewById(R.id.spinner);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item,options);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(aa);
+
         bookList = DataHandling.getBookList();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
