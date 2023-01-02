@@ -31,7 +31,7 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
     private ArrayList<Book> bookList;
     private recyclerAdapterAllBooks adapter;
     private Spinner spinner;
-    String[] options = {"Title", "Number of pages"};
+    String[] options = {"Title", "Available Copies", "Author", "Year Published"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,20 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i == 0) {
-                    Collections.sort(bookList, new SortbyTitle());
-                } else {
-                    Collections.sort(bookList, new SortbyNumberOfPages());
+
+                switch (i) {
+                    case 0:
+                        Collections.sort(bookList, new SortbyTitle());
+                        break;
+                    case 1:
+                        Collections.sort(bookList, new SortbyAvailableCopies());
+                        break;
+                    case 2:
+                        Collections.sort(bookList, new SortbyAuthors());
+                        break;
+                    case 3:
+                        Collections.sort(bookList, new SortbyYear());
+                        break;
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -107,9 +117,15 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
         }
     }
 
-    class SortbyNumberOfPages implements Comparator<Book> {
-        public int compare(Book a, Book b) {
-            return a.getNumberOfPages() - b.getNumberOfPages();
-        }
+    class SortbyAvailableCopies implements Comparator<Book> {
+        public int compare(Book a, Book b){return a.getNumberAvailable() - b.getNumberAvailable();}
+    }
+
+    class SortbyAuthors implements Comparator<Book> {
+        public int compare(Book a, Book b){return a.getAuthor().compareTo(b.getAuthor());}
+    }
+
+    class SortbyYear implements Comparator<Book> {
+        public int compare(Book a, Book b){return a.getpublishingYear().compareTo(b.getpublishingYear());}
     }
 }
