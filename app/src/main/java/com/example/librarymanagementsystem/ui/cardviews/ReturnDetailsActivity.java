@@ -123,7 +123,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
                     if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
                         bookList.get(i).removeABP(bp);
 
-                        if (bp.getFees() > 0.0f) {
+                        if (bp.getReturnDate().compareTo(new Date()) > 0) {
                             tFees.setText(bp.getFees()+" €");
                             dialog.show();
                             if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
@@ -144,7 +144,6 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
                 }
             }
         }
-
     }
 
     @Override

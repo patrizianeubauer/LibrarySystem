@@ -13,15 +13,19 @@ public class BorrowingProcess implements Serializable {
     private float fees;
     private int extensionCounter;
 
-    public BorrowingProcess(User name, Date dateOfIssue, float fees) {
+    public BorrowingProcess(User name, Date dateOfIssue) {
         this.user = name;
         this.dateOfIssue = dateOfIssue;
         Calendar cal = new GregorianCalendar();
         cal.setTime(dateOfIssue);
         cal.add(Calendar.DAY_OF_MONTH, 30);
         this.returnDate = cal.getTime();
-        this.fees = fees;
+        this.fees = daysBetween(this.returnDate, new Date())*(-1.0f)*0.2f;
         this.extensionCounter = 1;
+    }
+
+    private int daysBetween(Date d1, Date d2){
+        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     public int getExtensionCounter() {
@@ -36,9 +40,6 @@ public class BorrowingProcess implements Serializable {
         return fees;
     }
 
-    public void setFees(float fees) {
-        this.fees = fees;
-    }
     public User getUser() {
         return user;
     }
