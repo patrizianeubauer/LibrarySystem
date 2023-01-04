@@ -2,13 +2,15 @@
     <string name="app_name">LibraryManagementSystem</string>
     <string-array name="sortType">
         <item>Title</item>
-        <item>Number of pages</item>
+        <item>Available Copies</item>
+        <item>Author</item>
+        <item>Year Published</item>
     </string-array>
     <string-array name="genre">
         <item>Romane</item>
         <item>Thriller</item>
         <item>Adventure</item>
-        <item>Childrenbook</item>
+        <item>Children\s book</item>
         <item>History</item>
     </string-array>
     <string-array name="spinnerQuantity">
