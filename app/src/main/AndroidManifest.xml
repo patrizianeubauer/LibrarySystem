@@ -35,6 +35,8 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.cardviews.BorrowActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ui.cardviews.BorrowDetailsActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.cardviews.ReturnActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.cardviews.ReturnDetailsActivity"

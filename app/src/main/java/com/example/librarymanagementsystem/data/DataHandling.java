@@ -53,4 +53,7 @@ public class DataHandling {
         }
     }
 
+    public static ArrayList<User> getUserList() {
+        return userList;
+    }
 }

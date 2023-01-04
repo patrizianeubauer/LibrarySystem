@@ -31,8 +31,8 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.borrow_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        helperList = new ArrayList<>();
         bookList = new ArrayList<>();
-        helperList = DataHandling.getBookList();
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
@@ -53,9 +53,8 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void filterList(String s) {
-        helperList = DataHandling.getBookList();
         ArrayList<Book> filteredList = new ArrayList<>();
-        for(Book b:helperList) {
+        for(Book b:bookList) {
             if(b.getTitle().toLowerCase().contains(s.toLowerCase())) {
                 filteredList.add(b);
             }
@@ -87,7 +86,7 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void setAdapter() {
-        adapter = new recyclerAdapterBorrow(helperList, this);
+        adapter = new recyclerAdapterBorrow(bookList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -95,13 +94,19 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void setBookInfo() {
-        bookList = DataHandling.getBookList();
+        ArrayList<Book> list = DataHandling.getBookList();
+
+        for(Book b:list) {
+            if(b.isAvailable()) {
+                bookList.add(b);
+            }
+        }
     }
 
     @Override
     public void onDetailClick(int position) {
         Intent intent = new Intent(BorrowActivity.this, BorrowDetailsActivity.class);
-        intent.putExtra("some_detail", helperList.get(position));
+        intent.putExtra("some_book", bookList.get(position));
         startActivity(intent);
 
         adapter.notifyDataSetChanged();

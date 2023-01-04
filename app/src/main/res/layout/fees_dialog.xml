@@ -3,35 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/addName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp">
 
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:rowCount="1"
+                android:columnCount="2"
+                android:layout_gravity="center_horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="Fees to be paid: "
+                    android:text="To be paid: "
                     style="@style/TextViewStyleDialogs"/>
 
                 <TextView
                     android:id="@+id/tvFees"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:layout_gravity="center"
                     style="@style/TextViewStyleDialogs"/>
-            </LinearLayout>
+            </GridLayout>
 
             <Button
                 android:id="@+id/addButton"

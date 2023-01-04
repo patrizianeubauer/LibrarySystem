@@ -6,28 +6,54 @@
     android:layout_height="match_parent"
     android:layout_gravity="center">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/search_view_bg"
-        app:iconifiedByDefault="false"
+        android:layout_height="0dp"
+        android:columnCount="2"
+        android:rowCount="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Search Here" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:foregroundTint="#D3AA46"
+            android:gravity="left"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:text="List of all available books: "
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="233dp"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/search_view_bg"
+            android:gravity="right"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Here" />
+
+
+    </GridLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0.016" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

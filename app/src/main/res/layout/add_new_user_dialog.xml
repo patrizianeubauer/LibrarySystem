@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/addName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Surname: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/nachname"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/vorname"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="E-Mail: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Street: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/street"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="City: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/city"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ZIP Code: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <EditText
+                    android:id="@+id/zipcode"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Cancel" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

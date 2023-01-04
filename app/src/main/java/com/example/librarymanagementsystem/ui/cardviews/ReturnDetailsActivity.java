@@ -43,7 +43,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.return_items);
+        setContentView(R.layout.return_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (getIntent().hasExtra("some_book")) {
@@ -58,7 +58,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
         setAdapter();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Fees:");
+        builder.setTitle("Fees");
         viewFeesDialog = getLayoutInflater().inflate(R.layout.fees_dialog, null);
         tFees = viewFeesDialog.findViewById(R.id.tvFees);
         Button bAdd, bCancel;

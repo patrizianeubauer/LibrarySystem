@@ -65,7 +65,7 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
             }
 
             ArrayList<BorrowingProcess> list = book.getBorrowers();
-            TableLayout tl = (TableLayout) findViewById(R.id.tableLayout);
+            TableLayout tl = findViewById(R.id.tableLayout);
             SimpleDateFormat sdf2 = new SimpleDateFormat("dd.MM.yyyy");
 
             TableRow row = new TableRow(this);

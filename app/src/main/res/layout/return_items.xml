@@ -7,7 +7,7 @@
     android:layout_gravity="center">
 
     <GridLayout
-        android:id="@+id/gridLayout"
+        android:id="@+id/gridLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
@@ -45,9 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="@id/gridLayout"
-        app:layout_constraintStart_toStartOf="@id/gridLayout"
-        app:layout_constraintTop_toTopOf="@id/gridLayout" />
+        app:layout_constraintEnd_toEndOf="@id/gridLayout3"
+        app:layout_constraintStart_toStartOf="@id/gridLayout3"
+        app:layout_constraintTop_toTopOf="@id/gridLayout3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
