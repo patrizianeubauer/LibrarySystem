@@ -51,7 +51,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         String[] options = new String[userList.size()];
         int i = 0;
         for(User u: userList) {
-            options[i] = u.getVorname()+" "+u.getNachname();
+            options[i] = u.getVorname()+" "+u.getNachname()+" ("+u.getId()+")";
             i++;
         }
 

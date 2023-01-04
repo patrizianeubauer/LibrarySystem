@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    private static int help = 0;
+    private int id;
     private String vorname;
     private String nachname;
     private String email;
 
     public User(String vorname, String nachname, String email) {
+        this.id = help++;
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
@@ -36,6 +39,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
