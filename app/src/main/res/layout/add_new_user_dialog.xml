@@ -5,6 +5,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:backgroundTint="@color/grey"
+            android:background="@drawable/custom_edittext">
+
         <LinearLayout
             android:id="@+id/addName"
             android:layout_width="match_parent"
@@ -21,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Surname: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -41,6 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Name: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -60,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="E-Mail: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -79,6 +90,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Street: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -98,6 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="City: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -117,6 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="ZIP Code: "
+                    android:textStyle="bold"
                     style="@style/TextViewStyleDialogs"/>
 
                 <EditText
@@ -127,12 +141,19 @@
                     style="@style/TextViewStyleDialogs"/>
             </LinearLayout>
 
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="30dp"
+                android:rowCount="1"
+                android:columnCount="2">
             <Button
                 android:id="@+id/addButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
                 android:text="Add" />
 
             <Button
@@ -140,9 +161,10 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="Cancel" />
+            </GridLayout>
 
         </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </ScrollView>
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -28,9 +29,12 @@ import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class BorrowDetailsActivity extends AppCompatActivity  {
 
@@ -38,7 +42,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
     private ArrayList<Book> helperList;
     private ArrayList<User> userList;
     private Spinner spinner;
-    private AlertDialog dialog;
+    private AlertDialog dialog, dialogInfo;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         String[] options = new String[userList.size()];
         int i = 0;
         for(User u: userList) {
-            options[i] = u.getVorname()+" "+u.getNachname()+" ("+u.getId()+")";
+            options[i] = u.getVorname()+" "+u.getNachname()+" (ID: "+u.getId()+")";
             i++;
         }
 
@@ -72,10 +76,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
             }
         });
 
-        if (getIntent().hasExtra("some_book")) {
-            Book book = (Book) getIntent().getSerializableExtra("some_book");
 
-        }
 
         Button addNewUserButton = findViewById(R.id.addNewUserButton);
         addNewUserButton.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +88,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
             }
         });
 
+        // viewAddDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter new user:");
         View viewAddDialog = getLayoutInflater().inflate(R.layout.add_new_user_dialog, null);
@@ -95,7 +97,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         Button bAdd, bCancel;
         bAdd = viewAddDialog.findViewById(R.id.addButton);
         bCancel = viewAddDialog.findViewById(R.id.cancelButton);
-
+        User newUser = new User("", "", "");
         bAdd.setOnClickListener(view -> {
             String vorname = eVorname.getText().toString();
             String nachname = eNachname.getText().toString();
@@ -107,8 +109,9 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
                                 Toast.LENGTH_SHORT)
                         .show();
             } else {
-                //Book newBook = new Book(eTitle.getText().toString(), eISBN.getText().toString(), eAuthor.getText().toString(), Integer.parseInt(sQuantity.getSelectedItem().toString()), Integer.parseInt(eNOP.getText().toString()), sGenre.getSelectedItem().toString(), sLocation.getSelectedItem().toString(), new Date(), ePublisher.getText().toString(), new ArrayList<BorrowingProcess>());
-                User newUser = new User("","","");
+                // Book newBook = new Book(eTitle.getText().toString(), eISBN.getText().toString(), eAuthor.getText().toString(), Integer.parseInt(sQuantity.getSelectedItem().toString()), Integer.parseInt(eNOP.getText().toString()), sGenre.getSelectedItem().toString(), sLocation.getSelectedItem().toString(), new Date(), ePublisher.getText().toString(), new ArrayList<BorrowingProcess>());
+                // newUser = new User("","","");
+                // set new user info
                 DataHandling.userList.add(newUser);
                 Toast.makeText(
                                 BorrowDetailsActivity.this,
@@ -123,6 +126,52 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         bCancel.setOnClickListener(view1 -> dialog.dismiss());
         builder.setView(viewAddDialog);
         dialog = builder.create();
+
+        // viewInfoDialog
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder.setTitle("Borrow information:");
+        View viewInfoDialog = getLayoutInflater().inflate(R.layout.borrow_info_dialog, null);
+        TextView tvTitle = viewInfoDialog.findViewById(R.id.title);
+        TextView tvReturnDate = viewInfoDialog.findViewById(R.id.returnDate);
+        TextView tvBorrower = viewInfoDialog.findViewById(R.id.borrower);
+
+        if (getIntent().hasExtra("some_book")) {
+            Book book = (Book) getIntent().getSerializableExtra("some_book");
+            tvTitle.setText(book.getTitle());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(new Date());
+            cal.add(Calendar.DAY_OF_MONTH, 30);
+            tvReturnDate.setText(sdf.format(cal.getTime()));
+            if(!spinner.getSelectedItem().equals("")){
+                tvBorrower.setText(spinner.getSelectedItem().toString());
+            } else {
+                tvBorrower.setText(newUser.getVorname()+" "+newUser.getVorname()+" (ID: "+newUser.getId()+" )");
+            }
+        }
+
+        Button bOk = viewInfoDialog.findViewById(R.id.okButton);
+        bOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfo.dismiss();
+                Intent intent = new Intent(BorrowDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        builder2.setView(viewInfoDialog);
+        dialogInfo = builder2.create();
+
+        Button bBorrow = findViewById(R.id.borrowButton);
+        bBorrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogInfo.show();
+                Snackbar.make(view, "Show info about borrow process", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     @Override

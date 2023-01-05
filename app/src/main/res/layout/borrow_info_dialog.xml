@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:backgroundTint="@color/grey"
+            android:background="@drawable/custom_edittext">
+
+        <LinearLayout
+            android:id="@+id/addName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title: "
+                    android:textStyle="bold"
+                    style="@style/TextViewStyleDialogs"/>
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Borrower: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <TextView
+                    android:id="@+id/borrower"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Return date: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <TextView
+                    android:id="@+id/returnDate"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    style="@style/TextViewStyleDialogs"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/okButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="OK" />
+
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
+</RelativeLayout>
