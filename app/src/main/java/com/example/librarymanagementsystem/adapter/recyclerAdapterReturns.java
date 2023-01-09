@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystem.adapter;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -70,7 +72,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
     public void onBindViewHolder(@NonNull recyclerAdapterReturns.MyViewHolder holder, int position) {
         float fees = 0.0f;
         String title = bookList.get(position).getTitle();
-
+        Date date = new Date();
 
         ArrayList<Book> books = DataHandling.getBookList();
         for (Book book : books) {
@@ -83,6 +85,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
                     if(bp.getUser().getId() == user.getId()) {
                         fees = bp.getFees();
+                        date = bp.getDateOfIssue();
                     }
                     break;
                 }
@@ -96,7 +99,10 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
             newName = title;
         }
 
-        holder.nameText.setText(newName+" (+"+fees+"€)");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+        String sourceString = "Title: <b>"+newName+"</b><br>Borrowed on: <b>"+sdf.format(date)+"</b><br>Fees: <b>"+fees+"€</b>";
+        holder.nameText.setText(Html.fromHtml(sourceString));
     }
 
     @Override

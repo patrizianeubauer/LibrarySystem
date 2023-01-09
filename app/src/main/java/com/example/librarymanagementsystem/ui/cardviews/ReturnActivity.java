@@ -24,7 +24,6 @@ import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReturnActivity extends AppCompatActivity implements recyclerAdapterReturns.DetailsListener {
 

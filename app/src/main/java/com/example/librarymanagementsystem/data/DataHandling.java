@@ -17,20 +17,28 @@ public class DataHandling {
     public static void initListWithData() {
         bookList = new ArrayList<>();
         userList = new ArrayList<>();
+
         ArrayList<BorrowingProcess> names1 = new ArrayList<>();
+        ArrayList<BorrowingProcess> names2 = new ArrayList<>();
+
         User u1 = new User("herb","Herbert", "Fuchs", "h.f@gmx.at", "Street3", "9020", "Klagenfurt", "12345");
         User u2 = new User("lau", "Laura", "Hera", "hera.l@gmx.at", "Street4", "8020", "Graz", "12345");
-        BorrowingProcess bp1 = new BorrowingProcess(u1, new Date());
-        BorrowingProcess bp2 = new BorrowingProcess(u2, new Date());
+
+        Calendar c3 = new GregorianCalendar(2022, 07, 21);
+        Calendar c4 = new GregorianCalendar(2023, 01, 06);
+
+        BorrowingProcess bp1 = new BorrowingProcess(u1, c3.getTime());
+        BorrowingProcess bp2 = new BorrowingProcess(u2, c4.getTime());
+
         names1.add(bp1);
         names1.add(bp2);
 
-        ArrayList<BorrowingProcess> names2 = new ArrayList<>();
         User u3 = new User("sim","Simone", "Herre", "herre.simone@gmx.at", "Street1", "9020", "Klagenfurt", "12345");
         User u4 = new User("ed","Eward", "Alle", "alleeward@gmx.at","Street2", "8030", "Graz",  "12345");
 
-        Calendar c1 = new GregorianCalendar(2022, 12, 23);
+        Calendar c1 = new GregorianCalendar(2021, 12, 23);
         Calendar c2 = new GregorianCalendar(2018, 11, 23);
+
         names2.add(new BorrowingProcess(u3, c1.getTime()));
         names2.add(new BorrowingProcess(u4, c2.getTime()));
 
