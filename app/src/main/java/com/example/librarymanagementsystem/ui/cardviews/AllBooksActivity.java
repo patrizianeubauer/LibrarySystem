@@ -31,7 +31,7 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
     private ArrayList<Book> bookList;
     private recyclerAdapterAllBooks adapter;
     private Spinner spinner;
-    String[] options = {"Title", "Available Copies", "Author", "Year Published"};
+    String[] options = {"Title", "Year Published"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +51,6 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
                         Collections.sort(bookList, new SortbyTitle());
                         break;
                     case 1:
-                        Collections.sort(bookList, new SortbyAvailableCopies());
-                        break;
-                    case 2:
-                        Collections.sort(bookList, new SortbyAuthors());
-                        break;
-                    case 3:
                         Collections.sort(bookList, new SortbyYear());
                         break;
                 }
@@ -116,14 +110,6 @@ public class AllBooksActivity extends AppCompatActivity implements recyclerAdapt
         public int compare(Book a, Book b) {
             return a.getTitle().compareTo(b.getTitle());
         }
-    }
-
-    class SortbyAvailableCopies implements Comparator<Book> {
-        public int compare(Book a, Book b){return a.getNumberAvailable() - b.getNumberAvailable();}
-    }
-
-    class SortbyAuthors implements Comparator<Book> {
-        public int compare(Book a, Book b){return a.getAuthor().compareTo(b.getAuthor());}
     }
 
     class SortbyYear implements Comparator<Book> {

@@ -31,17 +31,51 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_books_details);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        int counterStart = 0;
 
         if (getIntent().hasExtra("some_detail")) {
             Book book = (Book) getIntent().getSerializableExtra("some_detail");
+            String title = "";
             tvTitle = findViewById(R.id.tvTitle);
-            tvTitle.setText(book.getTitle());
+            if (book.getTitle().length() > 30) {
+                while (counterStart + 30 <= book.getTitle().length())
+                {
+                    title = title + book.getTitle().substring(counterStart, counterStart + 30)+"\n";
+                    counterStart = counterStart + 30;
+                }
+
+                if (book.getTitle().length() - counterStart > 0) {
+                    title = title + book.getTitle().substring(counterStart, counterStart + book.getTitle().length() - counterStart);
+                    tvTitle.setText(title);
+                }
+            } else {
+                tvTitle.setText(book.getTitle());
+            }
+
             tvISBN = findViewById(R.id.tvISBN);
             tvISBN.setText(book.getIsbn());
+
+
             tvAuthor = findViewById(R.id.tvAuthor);
-            tvAuthor.setText(book.getAuthor());
+            String author = "";
+            counterStart = 0;
+            if (book.getAuthor().length() > 30) {
+                while (counterStart + 30 <= book.getAuthor().length())
+                {
+                    author = author + book.getAuthor().substring(counterStart, counterStart + 30)+"\n";
+                    counterStart = counterStart + 30;
+                }
+
+                if (book.getAuthor().length() - counterStart > 0) {
+                    author = author + book.getAuthor().substring(counterStart, counterStart + book.getAuthor().length() - counterStart);
+                    tvAuthor.setText(author);
+                }
+            } else {
+                tvAuthor.setText(book.getAuthor());
+            }
+
             tvNumberOfPages = findViewById(R.id.tvNumberOfPages);
-            tvNumberOfPages.setText(book.getNumberOfPages()+"");
+            tvNumberOfPages.setText(book.getNumberOfPages() + "");
             tvGenre = findViewById(R.id.tvGenre);
             tvGenre.setText(book.getGenre());
             tvLocation = findViewById(R.id.tvLocation);
@@ -54,10 +88,12 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
             tvAvailable = findViewById(R.id.tvAvailable);
             if (book.isAvailable()) {
                 tvAvailable.setText("Yes");
-                tvAvailable.setTextColor(Color.parseColor("#32CD32"));
+                tvAvailable.setBackgroundColor(Color.parseColor("#339900"));
+                tvAvailable.setTextColor(Color.parseColor("#FFFFFF"));
             } else {
                 tvAvailable.setText("No");
-                tvAvailable.setTextColor(Color.parseColor("#C70039"));
+                tvAvailable.setBackgroundColor(Color.parseColor("#CC0000"));
+                tvAvailable.setTextColor(Color.parseColor("#000000"));
             }
         }
     }

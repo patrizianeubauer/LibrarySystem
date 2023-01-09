@@ -30,7 +30,7 @@ public class DataHandling {
         User u4 = new User("ed","Eward", "Alle", "alleeward@gmx.at", "12345");
 
         Calendar c1 = new GregorianCalendar(2022, 02, 11);
-        Calendar c2 = new GregorianCalendar(2022, 11, 23);
+        Calendar c2 = new GregorianCalendar(2018, 11, 23);
         names2.add(new BorrowingProcess(u3, c1.getTime()));
         names2.add(new BorrowingProcess(u4, c2.getTime()));
 
@@ -39,9 +39,9 @@ public class DataHandling {
         userList.add(u3);
         userList.add(u4);
 
-        bookList.add(new Book("Title1", "ISBN1", "Author1", 3, 310, "Roman", "Location?", c1.getTime(), "Pub1", names1));
+        bookList.add(new Book("A very long book title with more than 50 characters", "ISBN1", "Author1, Author2, Author3, Author4, Author5, Author5", 3, 310, "Roman", "S3", c1.getTime(), "Pub1", names1));
         bookList.add(new Book("Das Wunder", "ISBN12345", "Max Mustermann", 2,2180, "Thriller", "S2", c2.getTime(), "Veritas", names2));
-        bookList.add(new Book("BOOK3", "ISBN3", "link", 1, 200, "Childrenbook", "Location?", c1.getTime(), "Pub3", new ArrayList<>()));
+        bookList.add(new Book("BOOK3", "ISBN3", "Hans Muster", 1, 200, "Childrenbook", "S1", c1.getTime(), "Pub3", new ArrayList<>()));
     }
 
     public static ArrayList<Book> getBookList() {

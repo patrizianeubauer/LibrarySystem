@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">LibraryManagementSystem</string>
+    <string name="app_name">Library Management System</string>
     <string-array name="sortType">
         <item>Title</item>
-        <item>Available Copies</item>
-        <item>Author</item>
         <item>Year Published</item>
     </string-array>
     <string-array name="genre">

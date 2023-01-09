@@ -20,7 +20,9 @@ public class BorrowingProcess implements Serializable {
         cal.setTime(dateOfIssue);
         cal.add(Calendar.DAY_OF_MONTH, 30);
         this.returnDate = cal.getTime();
-        this.fees = daysBetween(this.returnDate, new Date())*0.2f;
+        if(daysBetween(this.returnDate, new Date()) > 30) this.fees = daysBetween(this.returnDate, new Date())*0.2f;
+        else this.fees = 0.0f;
+
         if(this.fees < 0) this.fees = this.fees*(-1.0f);
         this.extensionCounter = 1;
     }

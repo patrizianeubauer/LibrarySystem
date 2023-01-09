@@ -15,16 +15,19 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapterReturns.MyViewHolder> {
 
     private ArrayList<Book> bookList;
     private recyclerAdapterReturns.DetailsListener onDetailsListener;
+    private User user;
 
     public recyclerAdapterReturns(ArrayList<Book> bookList, recyclerAdapterReturns.DetailsListener onDetailsListener) {
         this.bookList = bookList;
         this.onDetailsListener = onDetailsListener;
+        this.user = DataHandling.getCurrentUser();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -65,20 +68,33 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterReturns.MyViewHolder holder, int position) {
+        float fees = 0.0f;
         String title = bookList.get(position).getTitle();
-        holder.nameText.setText(title);
+
 
         ArrayList<Book> books = DataHandling.getBookList();
         for (Book book : books) {
 
             for (BorrowingProcess bp : book.getBorrowers()) {
                 if (book.getTitle().equals(bookList.get(position).getTitle())) {
-                    if (bp.getExtensionCounter() > 1) {
+                    if (bp.getExtensionCounter() > 1 || bp.getFees() > 0.0f) {
                         holder.buttonExtend.setEnabled(false);
+                    }
+                    if(bp.getUser().getId() == user.getId()) {
+                        fees = bp.getFees();
                     }
                 }
             }
         }
+
+        String newName="";
+        if(title.length() > 20) {
+            newName = title.substring(0, 20)+".. ";
+        } else {
+            newName = title;
+        }
+
+        holder.nameText.setText(newName+" (+"+fees+"€)");
     }
 
     @Override
