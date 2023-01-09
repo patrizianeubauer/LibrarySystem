@@ -29,7 +29,7 @@ public class DataHandling {
         User u3 = new User("sim","Simone", "Herre", "herre.simone@gmx.at", "12345");
         User u4 = new User("ed","Eward", "Alle", "alleeward@gmx.at", "12345");
 
-        Calendar c1 = new GregorianCalendar(2022, 02, 11);
+        Calendar c1 = new GregorianCalendar(2022, 12, 23);
         Calendar c2 = new GregorianCalendar(2018, 11, 23);
         names2.add(new BorrowingProcess(u3, c1.getTime()));
         names2.add(new BorrowingProcess(u4, c2.getTime()));

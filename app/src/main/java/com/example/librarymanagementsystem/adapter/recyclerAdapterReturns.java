@@ -76,13 +76,15 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
         for (Book book : books) {
 
             for (BorrowingProcess bp : book.getBorrowers()) {
-                if (book.getTitle().equals(bookList.get(position).getTitle())) {
-                    if (bp.getExtensionCounter() > 1 || bp.getFees() > 0.0f) {
+                if (book.getTitle().equals(bookList.get(position).getTitle()) && bp.getUser().getId() == user.getId()) {
+                    if (bp.getExtensionCounter() > 1 || bp.getFees() != 0.0f) {
                         holder.buttonExtend.setEnabled(false);
                     }
+
                     if(bp.getUser().getId() == user.getId()) {
                         fees = bp.getFees();
                     }
+                    break;
                 }
             }
         }
@@ -106,10 +108,4 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
         void onDetailClickExtend(int position);
         void onDetailClickReturn(int position);
     }
-
-    public void setFilteredList(ArrayList<Book> filteredList) {
-        this.bookList = filteredList;
-        notifyDataSetChanged();
-    }
-
 }

@@ -7,17 +7,13 @@
     android:background="@drawable/lib"
     tools:context=".MainActivity">
 
-
-
-
     <TextView
         android:id="@+id/loggedInAs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="right"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:padding="10dp"
         android:text="Welcome "
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
