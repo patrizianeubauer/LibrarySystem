@@ -134,6 +134,48 @@ public class LoginActivity extends AppCompatActivity {
         bCancel = viewAddDialog.findViewById(R.id.cancelButton);
 
         bAdd.setOnClickListener(view -> {
+            EditText eUsername = viewAddDialog.findViewById(R.id.username);
+            String username = eUsername.getText().toString();
+            EditText eNachname = viewAddDialog.findViewById(R.id.nachname);
+            String nachname = eNachname.getText().toString();
+            EditText eVorname = viewAddDialog.findViewById(R.id.vorname);
+            String vorname = eVorname.getText().toString();
+            EditText eEmail = viewAddDialog.findViewById(R.id.email);
+            String email = eEmail.getText().toString();
+            EditText eStreet = viewAddDialog.findViewById(R.id.street);
+            String street = eStreet.getText().toString();
+            EditText eZipCode = viewAddDialog.findViewById(R.id.zipcode);
+            String zipcode = eZipCode.getText().toString();
+            EditText eCity = viewAddDialog.findViewById(R.id.city);
+            String city = eCity.getText().toString();
+            EditText eFirstPassword = viewAddDialog.findViewById(R.id.firstPassword);
+            String firstPassword = eFirstPassword.getText().toString();
+            EditText eSecondPassword = viewAddDialog.findViewById(R.id.secondPassword);
+            String secondPassword = eSecondPassword.getText().toString();
+
+            ArrayList<User> userList = DataHandling.getUserList();
+
+            for(User user:userList) {
+                if(user.getUsername().equals(username)) {
+                    Toast.makeText(LoginActivity.this, "Username already exists!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    return;
+                }
+            }
+
+            if(username.equals("") || nachname.equals("") || vorname.equals("")  || zipcode.equals("") || email.equals("")
+                    || street.equals("") || city.equals("") || !firstPassword.equals(secondPassword)) {
+                if(!firstPassword.equals(secondPassword)) {
+                    Toast.makeText(LoginActivity.this, "Retype password correct! Try again!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "No empty fields! Try again!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                User newUser = new User(username, vorname, nachname, email, street, zipcode, city, firstPassword);
+                DataHandling.addNewUser(newUser);
+                Toast.makeText(LoginActivity.this, "New account created!", Toast.LENGTH_SHORT).show();
+            }
+
             dialog.dismiss();
         });
 
@@ -147,7 +189,5 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
     }
-
 }

@@ -11,14 +11,44 @@ public class User implements Serializable {
     private String email;
     private String username;
     private String password;
+    private String street;
+    private String zipcode;
+    private String city;
 
-    public User(String username, String vorname, String nachname, String email, String password) {
+    public User(String username, String vorname, String nachname, String email, String street, String zipcode, String city, String password) {
         this.id = help++;
         this.username = username;
         this.password = password;
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
+        this.street = street;
+        this.zipcode = zipcode;
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getVorname() {
