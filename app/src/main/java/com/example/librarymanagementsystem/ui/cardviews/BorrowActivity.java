@@ -110,8 +110,8 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
                         isBook = false;
                     }
                 }
+                if(isBook) bookList.add(b);
             }
-            if(isBook) bookList.add(b);
         }
     }
 
@@ -125,7 +125,7 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
                     ArrayList<BorrowingProcess> bpList = DataHandling.bookList.get(i).getBorrowers();
                     bpList.add(new BorrowingProcess(user, new Date()));
                     DataHandling.bookList.get(i).setBorrowers(bpList);
-                    bookList.remove(position);
+                    //bookList.remove(position);
                     adapter.notifyDataSetChanged();
                     Toast.makeText(this, "Borrowing was successful!", Toast.LENGTH_SHORT).show();
                 }
