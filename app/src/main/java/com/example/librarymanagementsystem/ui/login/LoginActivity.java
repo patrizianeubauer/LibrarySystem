@@ -6,21 +6,32 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.librarymanagementsystem.MainActivity;
 import com.example.librarymanagementsystem.R;
 import com.example.librarymanagementsystem.data.DataHandling;
+import com.example.librarymanagementsystem.model.Book;
+import com.example.librarymanagementsystem.model.BorrowingProcess;
+import com.example.librarymanagementsystem.model.User;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText username;
     EditText password;
     Button loginButton;
+    Button registerButton;
+    AlertDialog dialog;
+    ArrayList<User> userList;
+    boolean isUser = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,41 +41,30 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
+        registerButton = findViewById(R.id.registerButton);
 
-        /*
-        final EditText edittext = (EditText) findViewById(R.id.edittext);
-        edittext.setOnKeyListener(new OnKeyListener() {
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-        // If the event is a key-down event on the "enter" button
-        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-            (keyCode == KeyEvent.KEYCODE_ENTER)) {
-          // Perform action on key press
-          Toast.makeText(HelloFormStuff.this, edittext.getText(), Toast.LENGTH_SHORT).show();
-          return true;
-        }
-        return false;
-    }
-});
-         */
 
-        // typing the enter button in the password field has the same effect as clicking on the login button
+        DataHandling.initListWithData();
+        userList = DataHandling.getUserList();
+
         password.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 
-                        DataHandling.initListWithData();
+                    for (User user : userList) {
+                        if (username.getText().toString().equals(user.getUsername()) && password.getText().toString().equals(user.getPassword())) {
+                            Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("some_user", user);
+                            DataHandling.initListWithData();
 
-                        startActivity(mainIntent);
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                            isUser = true;
+                        }
                     }
-                    return true;
-
+                    if(!isUser) Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }
@@ -73,18 +73,42 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 
-                    DataHandling.initListWithData();
-
-                    startActivity(mainIntent);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                for (User user : userList) {
+                    if (username.getText().toString().equals(user.getUsername()) && password.getText().toString().equals(user.getPassword())) {
+                        Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("some_user", user);
+                        startActivity(intent);
+                        isUser = true;
+                    }
                 }
+                if(!isUser) Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
             }
         });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter new user:");
+        View viewAddDialog = getLayoutInflater().inflate(R.layout.register_dialog, null);
+        Button bAdd, bCancel;
+        bAdd = viewAddDialog.findViewById(R.id.addButton);
+        bCancel = viewAddDialog.findViewById(R.id.cancelButton);
+
+        bAdd.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+        bCancel.setOnClickListener(view1 -> dialog.dismiss());
+        builder.setView(viewAddDialog);
+        dialog = builder.create();
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+            }
+        });
+
     }
 
 }

@@ -72,8 +72,9 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
         ArrayList<Book> books = DataHandling.getBookList();
         for (Book book : books) {
+
             for (BorrowingProcess bp : book.getBorrowers()) {
-                if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                if (bp != null && bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
                     if (bp.getExtensionCounter() > 1) {
                         holder.buttonExtend.setEnabled(false);
                     }

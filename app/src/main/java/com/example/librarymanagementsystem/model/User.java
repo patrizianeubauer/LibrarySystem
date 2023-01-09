@@ -9,9 +9,13 @@ public class User implements Serializable {
     private String vorname;
     private String nachname;
     private String email;
+    private String username;
+    private String password;
 
-    public User(String vorname, String nachname, String email) {
+    public User(String username, String vorname, String nachname, String email, String password) {
         this.id = help++;
+        this.username = username;
+        this.password = password;
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
@@ -47,6 +51,22 @@ public class User implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

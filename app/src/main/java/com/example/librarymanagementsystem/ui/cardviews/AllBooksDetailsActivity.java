@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,10 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.librarymanagementsystem.R;
 import com.example.librarymanagementsystem.model.Book;
-import com.example.librarymanagementsystem.model.BorrowingProcess;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class AllBooksDetailsActivity extends AppCompatActivity {
 
@@ -62,36 +58,6 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
             } else {
                 tvAvailable.setText("No");
                 tvAvailable.setTextColor(Color.parseColor("#C70039"));
-            }
-
-            ArrayList<BorrowingProcess> list = book.getBorrowers();
-            TableLayout tl = findViewById(R.id.tableLayout);
-            SimpleDateFormat sdf2 = new SimpleDateFormat("dd.MM.yyyy");
-
-            TableRow row = new TableRow(this);
-            row.setPadding(40, 80, 40, 40);
-            TextView textView = new TextView(this);
-            textView.setText("Borrowed by: ");
-            textView.setTextColor(Color.parseColor("#B18904"));
-            row.addView(textView);
-            tl.addView(row);
-
-            if (list.size() < 1) {
-                TableRow row1 = new TableRow(this);
-                TextView textView1 = new TextView(this);
-                textView1.setText("-");
-                row1.addView(textView1);
-                row1.setPadding(40, 10, 40, 10);
-                tl.addView(row1);
-            }
-
-            for (int i = 0; i < list.size(); i++) {
-                TableRow row1 = new TableRow(this);
-                TextView textView1 = new TextView(this);
-                textView1.setText(list.get(i).getUser().getVorname() +" "+list.get(i).getUser().getNachname() + " on " + sdf2.format(list.get(i).getDateOfIssue()));
-                row1.addView(textView1);
-                row1.setPadding(40, 10, 40, 10);
-                tl.addView(row1);
             }
         }
     }

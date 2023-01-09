@@ -17,16 +17,16 @@ public class DataHandling {
         bookList = new ArrayList<>();
         userList = new ArrayList<>();
         ArrayList<BorrowingProcess> names1 = new ArrayList<>();
-        User u1 = new User("Herbert", "Fuchs", "h.f@gmx.at");
-        User u2 = new User("Laura", "Hera", "hera.l@gmx.at");
+        User u1 = new User("herb","Herbert", "Fuchs", "h.f@gmx.at", "12345");
+        User u2 = new User("lau", "Laura", "Hera", "hera.l@gmx.at", "12345");
         BorrowingProcess bp1 = new BorrowingProcess(u1, new Date());
         BorrowingProcess bp2 = new BorrowingProcess(u2, new Date());
         names1.add(bp1);
         names1.add(bp2);
 
         ArrayList<BorrowingProcess> names2 = new ArrayList<>();
-        User u3 = new User("Simone", "Herre", "herre.simone@gmx.at");
-        User u4 = new User("Eward", "Alle", "alleeward@gmx.at");
+        User u3 = new User("sim","Simone", "Herre", "herre.simone@gmx.at", "12345");
+        User u4 = new User("ed","Eward", "Alle", "alleeward@gmx.at", "12345");
 
         Calendar c1 = new GregorianCalendar(2022, 02, 11);
         Calendar c2 = new GregorianCalendar(2022, 11, 23);
@@ -55,5 +55,17 @@ public class DataHandling {
 
     public static ArrayList<User> getUserList() {
         return userList;
+    }
+
+    public static ArrayList<Book> getBookFromUser(User user) {
+        ArrayList<Book> userBookList = new ArrayList<>();
+        for(Book b:bookList) {
+            for(BorrowingProcess bp:b.getBorrowers()) {
+                if(bp.getUser().equals(user)) {
+                    userBookList.add(b);
+                }
+            }
+        }
+        return userBookList;
     }
 }

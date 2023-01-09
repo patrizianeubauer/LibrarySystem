@@ -80,6 +80,16 @@ public class Book implements Serializable {
         return borrowers;
     }
 
+    public void setBorrowers(ArrayList<BorrowingProcess> newBorrowers) {
+        borrowers = newBorrowers;
+
+        if(this.borrowers.size() < numberAvailable) {
+            this.available = true;
+        } else {
+            this.available = false;
+        }
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -94,6 +104,12 @@ public class Book implements Serializable {
             if(borrowers.get(i).getUser().getNachname().equals(bp.getUser().getNachname())) {
                 borrowers.remove(i);
             }
+        }
+
+        if(this.borrowers.size() < numberAvailable) {
+            this.available = true;
+        } else {
+            this.available = false;
         }
     }
 
