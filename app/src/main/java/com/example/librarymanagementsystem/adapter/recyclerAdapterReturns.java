@@ -19,11 +19,11 @@ import java.util.ArrayList;
 
 public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapterReturns.MyViewHolder> {
 
-    private ArrayList<User> userList;
+    private ArrayList<Book> bookList;
     private recyclerAdapterReturns.DetailsListener onDetailsListener;
 
-    public recyclerAdapterReturns(ArrayList<User> userList, recyclerAdapterReturns.DetailsListener onDetailsListener) {
-        this.userList = userList;
+    public recyclerAdapterReturns(ArrayList<Book> bookList, recyclerAdapterReturns.DetailsListener onDetailsListener) {
+        this.bookList = bookList;
         this.onDetailsListener = onDetailsListener;
     }
 
@@ -65,16 +65,14 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterReturns.MyViewHolder holder, int position) {
-        String vornamename = userList.get(position).getVorname();
-        String nachname = userList.get(position).getNachname();
-        String name = vornamename + " " + nachname;
-        holder.nameText.setText(name);
+        String title = bookList.get(position).getTitle();
+        holder.nameText.setText(title);
 
         ArrayList<Book> books = DataHandling.getBookList();
         for (Book book : books) {
 
             for (BorrowingProcess bp : book.getBorrowers()) {
-                if (bp != null && bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
+                if (book.getTitle().equals(bookList.get(position).getTitle())) {
                     if (bp.getExtensionCounter() > 1) {
                         holder.buttonExtend.setEnabled(false);
                     }
@@ -85,12 +83,17 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return bookList.size();
     }
 
     public interface DetailsListener {
         void onDetailClickExtend(int position);
         void onDetailClickReturn(int position);
+    }
+
+    public void setFilteredList(ArrayList<Book> filteredList) {
+        this.bookList = filteredList;
+        notifyDataSetChanged();
     }
 
 }

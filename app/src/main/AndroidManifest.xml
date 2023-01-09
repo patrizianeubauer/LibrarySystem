@@ -37,8 +37,6 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.cardviews.ReturnActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".ui.cardviews.ReturnDetailsActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

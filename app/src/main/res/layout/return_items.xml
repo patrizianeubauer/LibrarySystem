@@ -31,7 +31,7 @@
             android:layout_gravity="center_horizontal"
             android:foregroundTint="#D3AA46"
             android:gravity="center"
-            android:text="Borrowed by: "
+            android:text="Borrowed books: "
             android:textSize="14dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/spinner"

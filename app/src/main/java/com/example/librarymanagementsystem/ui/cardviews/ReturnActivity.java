@@ -15,29 +15,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.librarymanagementsystem.R;
 import com.example.librarymanagementsystem.adapter.recyclerAdapterAllBooks;
+import com.example.librarymanagementsystem.adapter.recyclerAdapterReturns;
 import com.example.librarymanagementsystem.data.DataHandling;
 import com.example.librarymanagementsystem.model.Book;
+import com.example.librarymanagementsystem.model.BorrowingProcess;
+import com.example.librarymanagementsystem.model.User;
 
 import java.util.ArrayList;
 
-public class ReturnActivity extends AppCompatActivity implements recyclerAdapterAllBooks.DetailsListener {
+public class ReturnActivity extends AppCompatActivity implements recyclerAdapterReturns.DetailsListener {
 
     private ArrayList<Book> bookList;
     private ArrayList<Book> helperList;
     private RecyclerView recyclerView;
-    private recyclerAdapterAllBooks adapter;
+    private recyclerAdapterReturns adapter;
     private SearchView searchView;
+    private User user;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.return_activity);
+        setContentView(R.layout.return_items);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.recyclerView);
         bookList = DataHandling.getBookList();
         helperList = new ArrayList<>();
+        if (getIntent().hasExtra("some_user")) {
+            user = (User) getIntent().getSerializableExtra("some_user");
+        }
         //helperList.addAll(DataHandling.getBookList());
-        searchView = findViewById(R.id.searchView);
+        /*searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -50,7 +57,7 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
                 filterList(s);
                 return false;
             }
-        });
+        });*/
         setBookInfo();
         setAdapter();
     }
@@ -71,7 +78,8 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void setAdapter() {
-        adapter = new recyclerAdapterAllBooks(helperList, this);
+        System.out.println(helperList.size());
+        adapter = new recyclerAdapterReturns(helperList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -79,45 +87,26 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
         adapter.notifyDataSetChanged();
     }
 
-    private void filterList(String s) {
-
-        ArrayList<Book> filteredList = new ArrayList<>();
-        for(Book b:helperList) {
-            if(b.getTitle().toLowerCase().contains(s.toLowerCase())) {
-                filteredList.add(b);
-            }
-        }
-
-        if(filteredList.isEmpty()) {
-            Toast.makeText(this, "No data found!", Toast.LENGTH_SHORT).show();
-            adapter.setFilteredList(new ArrayList<>());
-            this.helperList = filteredList;
-        } else {
-            adapter.setFilteredList(filteredList);
-            this.helperList = filteredList;
-        }
-        adapter.notifyDataSetChanged();
-    }
-
     private void setBookInfo() {
-        helperList.addAll(DataHandling.bookList);
-        ArrayList<Book> returningList = new ArrayList<>();
 
-        for(Book b: helperList) {
-            if(b.getBorrowers().size() > 0) {
-                returningList.add(b);
+        for(Book b: DataHandling.bookList) {
+            for(BorrowingProcess bp: b.getBorrowers()) {
+                System.out.println(bp.getUser().toString());
+                if(bp.getUser().getId() == user.getId()) {
+                    helperList.add(b);
+                    System.out.println(b.getTitle());
+                }
             }
         }
-
-        helperList.clear();
-        helperList.addAll(returningList);
     }
 
     @Override
-    public void onDetailClick(int position) {
-        Intent intent = new Intent(ReturnActivity.this, ReturnDetailsActivity.class);
-        intent.putExtra("some_book", helperList.get(position));
-        startActivity(intent);
-        adapter.notifyDataSetChanged();
+    public void onDetailClickExtend(int position) {
+
+    }
+
+    @Override
+    public void onDetailClickReturn(int position) {
+
     }
 }
