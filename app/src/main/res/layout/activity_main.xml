@@ -7,6 +7,9 @@
     android:background="@drawable/lib"
     tools:context=".MainActivity">
 
+
+
+
     <TextView
         android:id="@+id/loggedInAs"
         android:layout_width="wrap_content"

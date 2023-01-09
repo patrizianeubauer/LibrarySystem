@@ -30,7 +30,7 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
     private SearchView searchView;
     private RecyclerView recyclerView;
     private recyclerAdapterBorrow adapter;
-    private User user;
+    private User user = DataHandling.getCurrentUser();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,19 +53,21 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
                 return false;
             }
         });
+
+        user = DataHandling.getCurrentUser();
         setBookInfo();
         setAdapter();
     }
 
     private void filterList(String s) {
         ArrayList<Book> filteredList = new ArrayList<>();
-        for(Book b:bookList) {
-            if(b.getTitle().toLowerCase().contains(s.toLowerCase())) {
+        for (Book b : bookList) {
+            if (b.getTitle().toLowerCase().contains(s.toLowerCase())) {
                 filteredList.add(b);
             }
         }
 
-        if(filteredList.isEmpty()) {
+        if (filteredList.isEmpty()) {
             Toast.makeText(this, "No data found!", Toast.LENGTH_SHORT).show();
             adapter.setFilteredList(new ArrayList<>());
             this.helperList = filteredList;
@@ -102,35 +104,32 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
         boolean isBook = true;
         ArrayList<Book> list = DataHandling.getBookList();
 
-        for(Book b:list) {
+        for (Book b : list) {
             isBook = true;
-            if(b.isAvailable()) {
-                for(BorrowingProcess u:b.getBorrowers()) {
-                    if(u.getUser().equals(user)) {
+            if (b.isAvailable()) {
+                for (BorrowingProcess u : b.getBorrowers()) {
+                    if (u.getUser().getId() == user.getId()) {
                         isBook = false;
                     }
                 }
-                if(isBook) bookList.add(b);
+                if (isBook) bookList.add(b);
             }
         }
     }
 
     @Override
     public void onDetailClick(int position) {
-        if (getIntent().hasExtra("some_user")) {
-            user = (User) getIntent().getSerializableExtra("some_user");
 
-            for(int i = 0; i < DataHandling.bookList.size(); i++) {
-                if(DataHandling.bookList.get(i).getTitle().equals(bookList.get(position).getTitle())) {
-                    ArrayList<BorrowingProcess> bpList = DataHandling.bookList.get(i).getBorrowers();
-                    bpList.add(new BorrowingProcess(user, new Date()));
-                    DataHandling.bookList.get(i).setBorrowers(bpList);
-                    //bookList.remove(position);
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(this, "Borrowing was successful!", Toast.LENGTH_SHORT).show();
-                }
+        for (int i = 0; i < DataHandling.bookList.size(); i++) {
+            if (DataHandling.bookList.get(i).getTitle().equals(bookList.get(position).getTitle())) {
+                ArrayList<BorrowingProcess> bpList = DataHandling.bookList.get(i).getBorrowers();
+                bpList.add(new BorrowingProcess(user, new Date()));
+                DataHandling.bookList.get(i).setBorrowers(bpList);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(this, "Borrowing was successful!", Toast.LENGTH_SHORT).show();
             }
         }
+
         Intent intent = new Intent(BorrowActivity.this, MainActivity.class);
         startActivity(intent);
     }

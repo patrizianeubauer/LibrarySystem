@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 public class DataHandling {
     public static ArrayList<Book> bookList;
     public static ArrayList<User> userList;
+    public static User currentUser;
 
     public static void initListWithData() {
         bookList = new ArrayList<>();
@@ -47,25 +48,15 @@ public class DataHandling {
         return bookList;
     }
 
-    public static void printAll() {
-        for(Book b:bookList) {
-            System.out.println(b.toString());
-        }
-    }
-
     public static ArrayList<User> getUserList() {
         return userList;
     }
 
-    public static ArrayList<Book> getBookFromUser(User user) {
-        ArrayList<Book> userBookList = new ArrayList<>();
-        for(Book b:bookList) {
-            for(BorrowingProcess bp:b.getBorrowers()) {
-                if(bp.getUser().equals(user)) {
-                    userBookList.add(b);
-                }
-            }
-        }
-        return userBookList;
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        DataHandling.currentUser = currentUser;
     }
 }

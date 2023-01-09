@@ -1,8 +1,11 @@
 package com.example.librarymanagementsystem.ui.login;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog dialog;
     ArrayList<User> userList;
     boolean isUser = false;
+    private int visibleCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,34 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
         username = findViewById(R.id.username);
+        username.setText("");
         password = findViewById(R.id.password);
+        password.setText("");
+
+        password.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int DRAWABLE_RIGHT = 2;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                        if(visibleCounter%2==0) {
+                            password.setTransformationMethod(null);
+                            password.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_baseline_lock_24), null, getResources().getDrawable(R.drawable.ic_baseline_hide_source_24) ,null);
+                        }
+                        else {
+                            password.setTransformationMethod(new PasswordTransformationMethod());
+                            password.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_baseline_lock_24),null,getResources().getDrawable(R.drawable.ic_baseline_remove_red_eye_24) ,null);
+                        }
+                        visibleCounter++;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
 
@@ -57,14 +88,18 @@ public class LoginActivity extends AppCompatActivity {
                         if (username.getText().toString().equals(user.getUsername()) && password.getText().toString().equals(user.getPassword())) {
                             Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("some_user", user);
+                            DataHandling.setCurrentUser(user);
                             DataHandling.initListWithData();
 
                             startActivity(intent);
                             isUser = true;
                         }
                     }
-                    if(!isUser) Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                    if(!isUser) {
+                        Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                        username.setText("");
+                        password.setText("");
+                    }
                 }
                 return false;
             }
@@ -78,12 +113,16 @@ public class LoginActivity extends AppCompatActivity {
                     if (username.getText().toString().equals(user.getUsername()) && password.getText().toString().equals(user.getPassword())) {
                         Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("some_user", user);
+                        DataHandling.setCurrentUser(user);
                         startActivity(intent);
                         isUser = true;
                     }
                 }
-                if(!isUser) Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                if(!isUser) {
+                    Toast.makeText(LoginActivity.this, "Login Failed! Try again", Toast.LENGTH_SHORT).show();
+                    username.setText("");
+                    password.setText("");
+                }
             }
         });
 

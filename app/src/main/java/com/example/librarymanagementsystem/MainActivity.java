@@ -6,6 +6,10 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +25,7 @@ import com.example.librarymanagementsystem.ui.cardviews.AllBooksActivity;
 import com.example.librarymanagementsystem.ui.cardviews.BorrowActivity;
 import com.example.librarymanagementsystem.ui.cardviews.ReturnActivity;
 import com.example.librarymanagementsystem.ui.cardviews.SearchActivity;
+import com.example.librarymanagementsystem.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -42,11 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (getIntent().hasExtra("some_user")) {
-            user = (User) getIntent().getSerializableExtra("some_user");
-            welcome = findViewById(R.id.loggedInAs);
-            welcome.setText("Welcome, "+user.getVorname()+" "+user.getNachname()+"!");
-        }
+        user = DataHandling.getCurrentUser();
+        welcome = findViewById(R.id.loggedInAs);
+        welcome.setText("Welcome, " + user.getVorname() + " " + user.getNachname() + "!");
 
         allBooks = findViewById(R.id.allBooks);
         allBooks.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ReturnActivity.class);
-                intent.putExtra("some_user", user);
                 startActivity(intent);
             }
         });
@@ -81,9 +83,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, BorrowActivity.class);
-                intent.putExtra("some_user", user);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.exit:
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                return (true);
+        }
+        return (super.onOptionsItemSelected(item));
     }
 }

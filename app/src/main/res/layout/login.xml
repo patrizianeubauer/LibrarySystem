@@ -45,8 +45,6 @@
                 android:padding="10dp"
                 android:textColor="@color/black" />
 
-
-
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
@@ -54,6 +52,7 @@
                 android:layout_marginTop="25dp"
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:drawableRight="@drawable/ic_baseline_remove_red_eye_24"
                 android:drawablePadding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
