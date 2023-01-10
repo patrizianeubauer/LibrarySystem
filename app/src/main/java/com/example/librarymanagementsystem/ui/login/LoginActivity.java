@@ -1,7 +1,6 @@
 package com.example.librarymanagementsystem.ui.login;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
@@ -9,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,13 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.librarymanagementsystem.MainActivity;
 import com.example.librarymanagementsystem.R;
 import com.example.librarymanagementsystem.data.DataHandling;
-import com.example.librarymanagementsystem.model.Book;
-import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
