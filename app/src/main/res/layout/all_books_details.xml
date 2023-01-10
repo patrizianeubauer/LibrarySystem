@@ -13,6 +13,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,10 +137,10 @@
                     android:id="@+id/tvAvailable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/brown"
+                    android:background="@color/white"
                     android:padding="18dip"
                     android:text="Available"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="14dp" />
             </TableRow>
 

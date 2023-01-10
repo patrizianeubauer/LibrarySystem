@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,17 +23,16 @@
 
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="200dp"
         android:columnCount="2"
         android:paddingTop="20dp"
-        android:rowCount="2"
+        android:rowCount="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <androidx.cardview.widget.CardView
             android:id="@+id/allBooks"
@@ -47,7 +47,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivAllBooks"
@@ -62,6 +63,7 @@
                     android:layout_below="@+id/ivAllBooks"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="All Books" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -79,7 +81,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivSearch"
@@ -94,9 +97,11 @@
                     android:layout_below="@+id/ivSearch"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="Search" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/borrow"
             android:layout_width="wrap_content"
@@ -125,6 +130,7 @@
                     android:layout_below="@+id/ivBorrow"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="Borrow" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -142,7 +148,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivReturns"
@@ -157,6 +164,7 @@
                     android:layout_below="@+id/ivReturns"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="Return/Extend" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -174,7 +182,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivAddNewBook"
@@ -189,6 +198,7 @@
                     android:layout_below="@+id/ivAddNewBook"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="Add New Book" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -206,7 +216,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/ivRemoveBook"
@@ -221,6 +232,7 @@
                     android:layout_below="@+id/ivRemoveBook"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
+                    android:gravity="bottom"
                     android:text="Remove Book" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

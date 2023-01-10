@@ -97,7 +97,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         Button bAdd, bCancel;
         bAdd = viewAddDialog.findViewById(R.id.addButton);
         bCancel = viewAddDialog.findViewById(R.id.cancelButton);
-        User newUser = new User("", "", "");
+        User newUser = new User("", "", "", "", "", "", "", "");
         bAdd.setOnClickListener(view -> {
             String vorname = eVorname.getText().toString();
             String nachname = eNachname.getText().toString();
@@ -129,7 +129,7 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
 
         // viewInfoDialog
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-        builder.setTitle("Borrow information:");
+        builder2.setTitle("Borrow information:");
         View viewInfoDialog = getLayoutInflater().inflate(R.layout.borrow_info_dialog, null);
         TextView tvTitle = viewInfoDialog.findViewById(R.id.title);
         TextView tvReturnDate = viewInfoDialog.findViewById(R.id.returnDate);
