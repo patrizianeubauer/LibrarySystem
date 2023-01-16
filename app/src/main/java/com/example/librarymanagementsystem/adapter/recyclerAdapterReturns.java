@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystem.adapter;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapterReturns.MyViewHolder> {
@@ -45,7 +47,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
         @Override
         public void onClick(View view) {
-            switch(view.getId()) {
+            switch (view.getId()) {
                 case R.id.buttonExtend:
                     this.detailsListener.onDetailClickExtend(getAdapterPosition());
                     break;
@@ -65,18 +67,21 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterReturns.MyViewHolder holder, int position) {
-        String vornamename = userList.get(position).getVorname();
-        String nachname = userList.get(position).getNachname();
-        String name = vornamename + " " + nachname;
-        holder.nameText.setText(name);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+
+        String sourceString;
 
         ArrayList<Book> books = DataHandling.getBookList();
         for (Book book : books) {
             for (BorrowingProcess bp : book.getBorrowers()) {
-                if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
-                    if (bp.getExtensionCounter() > 1) {
+                sourceString="";
+                if (bp.getUser().getId() == userList.get(position).getId()) {
+                    if (bp.getExtensionCounter() > 1 || bp.getFees() > 0.0f) {
                         holder.buttonExtend.setEnabled(false);
                     }
+                    sourceString = "Title: <b>" + bp.getUser().getVorname()+" "+bp.getUser().getNachname() + "</b><br>Borrowed on: <b>" + sdf.format(bp.getDateOfIssue()) + "</b><br>Fees: <b>" + bp.getFees() + "€</b>";
+                    holder.nameText.setText(Html.fromHtml(sourceString));
+                    break;
                 }
             }
         }
@@ -89,6 +94,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
     public interface DetailsListener {
         void onDetailClickExtend(int position);
+
         void onDetailClickReturn(int position);
     }
 

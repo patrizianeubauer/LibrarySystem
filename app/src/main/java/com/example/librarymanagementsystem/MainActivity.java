@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     CardView searchBooks;
     CardView returnBooks;
     CardView borrowingBooks;
+    CardView addNewUser;
     private AlertDialog dialog;
+    Button registerButton;
     TextView welcome;
     User user;
 
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override

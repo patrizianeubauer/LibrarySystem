@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.librarymanagementsystem.R;
 import com.example.librarymanagementsystem.model.Book;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class recyclerAdapterBorrow extends RecyclerView.Adapter<recyclerAdapterBorrow.MyViewHolder> {
@@ -53,7 +54,8 @@ public class recyclerAdapterBorrow extends RecyclerView.Adapter<recyclerAdapterB
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String name = bookList.get(position).getTitle();
-        holder.titleText.setText(name);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        holder.titleText.setText(name+" ("+sdf.format(bookList.get(position).getpublishingYear())+")");
     }
 
     @Override

@@ -36,13 +36,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class BorrowDetailsActivity extends AppCompatActivity  {
+public class BorrowDetailsActivity extends AppCompatActivity {
 
     private ArrayList<Book> bookList;
     private ArrayList<Book> helperList;
     private ArrayList<User> userList;
+    private Button addNewUserButton, addNewUser, registerButton;
     private Spinner spinner;
     private AlertDialog dialog, dialogInfo;
+    private User newUser = DataHandling.getCurrentUser();
+    private Book book;
+    private String item;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +55,22 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         this.helperList = new ArrayList<>();
         setBookInfo();
         userList = DataHandling.getUserList();
+        ArrayList<BorrowingProcess> bpList;
 
-        String[] options = new String[userList.size()];
+        book = (Book) getIntent().getSerializableExtra("some_book");
+        bpList = book.getBorrowers();
+        String[] options = new String[userList.size() - bpList.size()];
+        System.out.println(bpList.size());
         int i = 0;
-        for(User u: userList) {
-            options[i] = u.getVorname()+" "+u.getNachname()+" (ID: "+u.getId()+")";
-            i++;
+        for (User u : userList) {
+            if (!book.BPcontainsUser(u)) {
+                options[i] = u.getVorname() + " " + u.getNachname() + " (ID: " + u.getId() + ")";
+                i++;
+            }
         }
 
         this.spinner = findViewById(R.id.spinnerBorrow);
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item,options);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, options);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(aa);
 
@@ -76,56 +86,74 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
             }
         });
 
-
-
-        Button addNewUserButton = findViewById(R.id.addNewUserButton);
-        addNewUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.show();
-                Snackbar.make(view, "Adding new user", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        // viewAddDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter new user:");
-        View viewAddDialog = getLayoutInflater().inflate(R.layout.add_new_user_dialog, null);
-        EditText eVorname = viewAddDialog.findViewById(R.id.vorname);
-        EditText eNachname = viewAddDialog.findViewById(R.id.nachname);
+        View viewAddDialog = getLayoutInflater().inflate(R.layout.register_dialog, null);
         Button bAdd, bCancel;
         bAdd = viewAddDialog.findViewById(R.id.addButton);
         bCancel = viewAddDialog.findViewById(R.id.cancelButton);
-        User newUser = new User("", "", "", "", "", "", "", "");
-        bAdd.setOnClickListener(view -> {
-            String vorname = eVorname.getText().toString();
-            String nachname = eNachname.getText().toString();
 
-            if (vorname.equals("")) {
-                Toast.makeText(
-                                BorrowDetailsActivity.this,
-                                "Error while adding new user! No blank field!",
-                                Toast.LENGTH_SHORT)
-                        .show();
+        bAdd.setOnClickListener(view2 -> {
+            EditText eUsername = viewAddDialog.findViewById(R.id.username);
+            String username = eUsername.getText().toString();
+            EditText eNachname = viewAddDialog.findViewById(R.id.nachname);
+            String nachname = eNachname.getText().toString();
+            EditText eVorname = viewAddDialog.findViewById(R.id.vorname);
+            String vorname = eVorname.getText().toString();
+            EditText eEmail = viewAddDialog.findViewById(R.id.email);
+            String email = eEmail.getText().toString();
+            EditText eStreet = viewAddDialog.findViewById(R.id.street);
+            String street = eStreet.getText().toString();
+            EditText eZipCode = viewAddDialog.findViewById(R.id.zipcode);
+            String zipcode = eZipCode.getText().toString();
+            EditText eCity = viewAddDialog.findViewById(R.id.city);
+            String city = eCity.getText().toString();
+            EditText eFirstPassword = viewAddDialog.findViewById(R.id.firstPassword);
+            String firstPassword = eFirstPassword.getText().toString();
+            EditText eSecondPassword = viewAddDialog.findViewById(R.id.secondPassword);
+            String secondPassword = eSecondPassword.getText().toString();
+
+            ArrayList<User> userList = DataHandling.getUserList();
+
+            for (User user : userList) {
+                if (user.getUsername().equals(username)) {
+                    Toast.makeText(BorrowDetailsActivity.this, "Username already exists!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    return;
+                }
+            }
+
+            if (username.equals("") || nachname.equals("") || vorname.equals("") || zipcode.equals("") || email.equals("")
+                    || street.equals("") || city.equals("") || !firstPassword.equals(secondPassword)) {
+                if (!firstPassword.equals(secondPassword)) {
+                    Toast.makeText(BorrowDetailsActivity.this, "Retype password correct! Try again!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(BorrowDetailsActivity.this, "No empty fields! Try again!", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                // Book newBook = new Book(eTitle.getText().toString(), eISBN.getText().toString(), eAuthor.getText().toString(), Integer.parseInt(sQuantity.getSelectedItem().toString()), Integer.parseInt(eNOP.getText().toString()), sGenre.getSelectedItem().toString(), sLocation.getSelectedItem().toString(), new Date(), ePublisher.getText().toString(), new ArrayList<BorrowingProcess>());
-                // newUser = new User("","","");
-                // set new user info
-                DataHandling.userList.add(newUser);
-                Toast.makeText(
-                                BorrowDetailsActivity.this,
-                                "New user added successfully!",
-                                Toast.LENGTH_SHORT)
-                        .show();
+                User newUser = new User(username, vorname, nachname, email, street, zipcode, city, firstPassword);
+                DataHandling.addNewUser(newUser);
+                Toast.makeText(BorrowDetailsActivity.this, "New account created!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BorrowDetailsActivity.this, BorrowDetailsActivity.class);
+                startActivity(intent);
             }
 
             dialog.dismiss();
+
         });
 
-        bCancel.setOnClickListener(view1 -> dialog.dismiss());
+        bCancel.setOnClickListener(view2 -> dialog.dismiss());
         builder.setView(viewAddDialog);
         dialog = builder.create();
+
+        // viewAddDialog
+        addNewUser = findViewById(R.id.addNewUserButton);
+        addNewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+            }
+        });
 
         // viewInfoDialog
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
@@ -135,26 +163,34 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
         TextView tvReturnDate = viewInfoDialog.findViewById(R.id.returnDate);
         TextView tvBorrower = viewInfoDialog.findViewById(R.id.borrower);
 
-        if (getIntent().hasExtra("some_book")) {
-            Book book = (Book) getIntent().getSerializableExtra("some_book");
-            tvTitle.setText(book.getTitle());
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-            Calendar cal = new GregorianCalendar();
-            cal.setTime(new Date());
-            cal.add(Calendar.DAY_OF_MONTH, 30);
-            tvReturnDate.setText(sdf.format(cal.getTime()));
-            if(!spinner.getSelectedItem().equals("")){
-                tvBorrower.setText(spinner.getSelectedItem().toString());
-            } else {
-                tvBorrower.setText(newUser.getVorname()+" "+newUser.getVorname()+" (ID: "+newUser.getId()+" )");
+        tvTitle.setText(book.getTitle());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(new Date());
+        cal.add(Calendar.DAY_OF_MONTH, 30);
+        tvReturnDate.setText(sdf.format(cal.getTime()));
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+                item = parent.getItemAtPosition(position).toString();
+                tvBorrower.setText(item);
+                DataHandling.setCurrentUser(DataHandling.getUser(item));
             }
-        }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         Button bOk = viewInfoDialog.findViewById(R.id.okButton);
         bOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogInfo.dismiss();
+
+                DataHandling.addBP(book, DataHandling.getCurrentUser());
                 Intent intent = new Intent(BorrowDetailsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -168,8 +204,6 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 dialogInfo.show();
-                Snackbar.make(view, "Show info about borrow process", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }
@@ -192,8 +226,8 @@ public class BorrowDetailsActivity extends AppCompatActivity  {
     private void setBookInfo() {
         bookList = DataHandling.getBookList();
 
-        for(Book b:bookList) {
-            if(b.isAvailable()) {
+        for (Book b : bookList) {
+            if (b.isAvailable()) {
                 helperList.add(b);
             }
         }

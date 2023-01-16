@@ -19,7 +19,7 @@ public class Book implements Serializable {
     private int numberOfPages;
     private String genre;
     private String location;
-    private ArrayList<BorrowingProcess> borrowers;
+    private static ArrayList<BorrowingProcess> borrowers;
 
     public Book(String title, String isbn, String author, int numberAvailable, int numberOfPages, String genre, String location, Date publishingYear, String publisher, ArrayList<BorrowingProcess> borrowers) {
         this.title = title;
@@ -115,6 +115,16 @@ public class Book implements Serializable {
                 borrowers.get(i).setReturnDate(cal.getTime());
             }
         }
+    }
+
+
+    public static boolean BPcontainsUser(User user) {
+        for(BorrowingProcess u: borrowers) {
+            if(u.getUser().getId() == user.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

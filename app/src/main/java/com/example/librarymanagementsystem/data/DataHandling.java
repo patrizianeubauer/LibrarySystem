@@ -76,4 +76,21 @@ public class DataHandling {
     public static void addNewUser(User newUser) {
         userList.add(newUser);
     }
+
+    public static void addBP(Book book, User user) {
+        for(int i = 0; i < bookList.size(); i++) {
+            if(bookList.get(i).getTitle().equals(book.getTitle())) {
+                bookList.get(i).getBorrowers().add(new BorrowingProcess(user, new Date()));
+            }
+        }
+    }
+
+    public static User getUser(String name) {
+        for(User u: userList) {
+            if(name.split(" ")[0].equals(u.getVorname())) {
+                return u;
+            }
+        }
+        return null;
+    }
 }
