@@ -19,7 +19,7 @@ public class Book implements Serializable {
     private int numberOfPages;
     private String genre;
     private String location;
-    private static ArrayList<BorrowingProcess> borrowers;
+    private  ArrayList<BorrowingProcess> borrowers;
 
     public Book(String title, String isbn, String author, int numberAvailable, int numberOfPages, String genre, String location, Date publishingYear, String publisher, ArrayList<BorrowingProcess> borrowers) {
         this.title = title;
@@ -95,14 +95,25 @@ public class Book implements Serializable {
                 borrowers.remove(i);
             }
         }
+
+        if(this.borrowers.size() < numberAvailable) {
+            this.available = true;
+        } else {
+            this.available = false;
+        }
     }
 
     public void incrementCounterinABP(BorrowingProcess bp) {
-
         for(int i = 0; i < borrowers.size(); i++) {
             if(borrowers.get(i).getUser().getNachname().equals(bp.getUser().getNachname())) {
                 borrowers.get(i).incrementExtensionCounter();
             }
+        }
+
+        if(this.borrowers.size() < numberAvailable) {
+            this.available = true;
+        } else {
+            this.available = false;
         }
     }
 
@@ -118,8 +129,8 @@ public class Book implements Serializable {
     }
 
 
-    public static boolean BPcontainsUser(User user) {
-        for(BorrowingProcess u: borrowers) {
+    public boolean BPcontainsUser(User user) {
+        for(BorrowingProcess u: this.borrowers) {
             if(u.getUser().getId() == user.getId()) {
                 return true;
             }

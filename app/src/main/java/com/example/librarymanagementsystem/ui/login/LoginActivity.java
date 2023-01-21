@@ -79,8 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (username.getText().toString().equals(user.getUsername()) && password.getText().toString().equals(user.getPassword())) {
                             Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            DataHandling.setCurrentUser(user);
-                            DataHandling.initListWithData();
+                            //DataHandling.setCurrentUser(user);
+                            //DataHandling.initListWithData();
 
                             startActivity(intent);
                             isUser = true;

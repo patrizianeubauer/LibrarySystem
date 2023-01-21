@@ -33,7 +33,7 @@ public class SearchActivity extends AppCompatActivity implements recyclerAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bookList = new ArrayList<>();
-        helperList = DataHandling.getBookList();
+        helperList.addAll(DataHandling.bookList);
 
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void filterList(String s) {
-        helperList = DataHandling.getBookList();
+        helperList.addAll(DataHandling.bookList);
         ArrayList<Book> filteredList = new ArrayList<>();
         for(Book b:helperList) {
             if(b.getTitle().toLowerCase().contains(s.toLowerCase())) {

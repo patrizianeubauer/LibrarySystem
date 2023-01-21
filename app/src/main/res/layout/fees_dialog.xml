@@ -23,7 +23,7 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:rowCount="1"
+                android:rowCount="2"
                 android:columnCount="2"
                 android:layout_gravity="center_horizontal">
 
@@ -36,6 +36,21 @@
 
                 <TextView
                     android:id="@+id/tvFees"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    style="@style/TextViewStyleDialogs"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="Days too late: "
+                    style="@style/TextViewStyleDialogs"/>
+
+                <TextView
+                    android:id="@+id/tvDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""

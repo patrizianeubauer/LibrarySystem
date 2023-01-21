@@ -34,9 +34,10 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.recyclerView);
-        bookList = DataHandling.getBookList();
+        bookList = new ArrayList<>();
+        bookList.addAll(DataHandling.bookList);
         helperList = new ArrayList<>();
-        //helperList.addAll(DataHandling.getBookList());
+
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -80,7 +81,8 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void filterList(String s) {
-
+        helperList.clear();
+        helperList.addAll(DataHandling.getBookListForReturn());
         ArrayList<Book> filteredList = new ArrayList<>();
         for(Book b:helperList) {
             if(b.getTitle().toLowerCase().contains(s.toLowerCase())) {
@@ -96,11 +98,10 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
             adapter.setFilteredList(filteredList);
             this.helperList = filteredList;
         }
-        adapter.notifyDataSetChanged();
     }
 
     private void setBookInfo() {
-        helperList.addAll(DataHandling.bookList);
+        helperList.addAll(DataHandling.getBookListForReturn());
         ArrayList<Book> returningList = new ArrayList<>();
 
         for(Book b: helperList) {

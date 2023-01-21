@@ -4,8 +4,10 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -81,6 +83,8 @@ public class DataHandling {
         for(int i = 0; i < bookList.size(); i++) {
             if(bookList.get(i).getTitle().equals(book.getTitle())) {
                 bookList.get(i).getBorrowers().add(new BorrowingProcess(user, new Date()));
+                //bookList.get(i).
+                break;
             }
         }
     }
@@ -92,5 +96,18 @@ public class DataHandling {
             }
         }
         return null;
+    }
+
+    public static ArrayList<Book> getBookListForReturn() {
+
+        ArrayList<Book> returnBookList = new ArrayList<>();
+
+        for(Book b: bookList) {
+            if(b.getBorrowers().size() != 0) {
+                returnBookList.add(b);
+            }
+        }
+
+        return returnBookList;
     }
 }

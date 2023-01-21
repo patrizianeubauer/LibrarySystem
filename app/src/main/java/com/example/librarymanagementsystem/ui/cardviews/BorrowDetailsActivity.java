@@ -52,15 +52,17 @@ public class BorrowDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.borrow_with_user_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.helperList = new ArrayList<>();
+        helperList = new ArrayList<>();
+        bookList = new ArrayList<>();
+        userList = new ArrayList<>();
         setBookInfo();
-        userList = DataHandling.getUserList();
+        userList.addAll(DataHandling.getUserList());
         ArrayList<BorrowingProcess> bpList;
 
         book = (Book) getIntent().getSerializableExtra("some_book");
         bpList = book.getBorrowers();
         String[] options = new String[userList.size() - bpList.size()];
-        System.out.println(bpList.size());
+
         int i = 0;
         for (User u : userList) {
             if (!book.BPcontainsUser(u)) {
@@ -113,9 +115,10 @@ public class BorrowDetailsActivity extends AppCompatActivity {
             EditText eSecondPassword = viewAddDialog.findViewById(R.id.secondPassword);
             String secondPassword = eSecondPassword.getText().toString();
 
-            ArrayList<User> userList = DataHandling.getUserList();
+            ArrayList<User> newUserList = new ArrayList<>();
+            newUserList.addAll(DataHandling.getUserList());
 
-            for (User user : userList) {
+            for (User user : newUserList) {
                 if (user.getUsername().equals(username)) {
                     Toast.makeText(BorrowDetailsActivity.this, "Username already exists!", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -135,6 +138,7 @@ public class BorrowDetailsActivity extends AppCompatActivity {
                 DataHandling.addNewUser(newUser);
                 Toast.makeText(BorrowDetailsActivity.this, "New account created!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(BorrowDetailsActivity.this, BorrowDetailsActivity.class);
+                intent.putExtra("some_book", book);
                 startActivity(intent);
             }
 
@@ -224,7 +228,7 @@ public class BorrowDetailsActivity extends AppCompatActivity {
     }
 
     private void setBookInfo() {
-        bookList = DataHandling.getBookList();
+        bookList.addAll(DataHandling.getBookList());
 
         for (Book b : bookList) {
             if (b.isAvailable()) {

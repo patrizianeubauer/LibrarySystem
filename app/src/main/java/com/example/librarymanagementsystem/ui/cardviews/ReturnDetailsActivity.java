@@ -38,7 +38,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
     private Book book;
     private ArrayList<Book> bookList;
     private AlertDialog dialog;
-    private TextView tFees;
+    private TextView tFees, tDays;
     private View viewFeesDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,8 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
         if (getIntent().hasExtra("some_book")) {
             book = (Book) getIntent().getSerializableExtra("some_book");
         }
-
-        bookList = DataHandling.getBookList();
+        bookList = new ArrayList<>();
+        bookList.addAll(DataHandling.getBookList());
         userList = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
@@ -61,6 +61,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
         builder.setTitle("Fees");
         viewFeesDialog = getLayoutInflater().inflate(R.layout.fees_dialog, null);
         tFees = viewFeesDialog.findViewById(R.id.tvFees);
+        tDays = viewFeesDialog.findViewById(R.id.tvDays);
         Button bAdd, bCancel;
         bAdd = viewFeesDialog.findViewById(R.id.addButton);
         bCancel = viewFeesDialog.findViewById(R.id.cancelButton);
@@ -101,7 +102,7 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
     }
 
     private void setAdapter() {
-        adapter = new recyclerAdapterReturns(userList, this);
+        adapter = new recyclerAdapterReturns(userList, book,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -123,8 +124,9 @@ public class ReturnDetailsActivity extends AppCompatActivity implements recycler
                     if (bp.getUser().getNachname().equals(userList.get(position).getNachname()) && bp.getUser().getVorname().equals(userList.get(position).getVorname())) {
                         bookList.get(i).removeABP(bp);
 
-                        if (bp.getReturnDate().compareTo(new Date()) > 0) {
+                        if (bp.getFees() > 0.0f) {
                             tFees.setText(bp.getFees()+" €");
+                            tDays.setText(bp.daysBetween(bp.getReturnDate(), new Date())+"");
                             dialog.show();
                             if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
                                 bookList.get(i).setAvailable(true);
