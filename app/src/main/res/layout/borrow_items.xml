@@ -33,12 +33,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonDetails"
         android:layout_gravity="right"
-        android:text="Borrow"
+        android:text="Details"
         android:textSize="5pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.989"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/titleText"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

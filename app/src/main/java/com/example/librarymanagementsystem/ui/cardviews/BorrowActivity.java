@@ -94,7 +94,8 @@ public class BorrowActivity extends AppCompatActivity implements recyclerAdapter
     }
 
     private void setBookInfo() {
-        ArrayList<Book> list = DataHandling.getBookList();
+        ArrayList<Book> list = new ArrayList<>();
+        list.addAll(DataHandling.bookList);
 
         for(Book b:list) {
             if(b.isAvailable()) {

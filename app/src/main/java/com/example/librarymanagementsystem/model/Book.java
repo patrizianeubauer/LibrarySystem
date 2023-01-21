@@ -109,12 +109,6 @@ public class Book implements Serializable {
                 borrowers.get(i).incrementExtensionCounter();
             }
         }
-
-        if(this.borrowers.size() < numberAvailable) {
-            this.available = true;
-        } else {
-            this.available = false;
-        }
     }
 
     public void updateReturnDate(BorrowingProcess bp) {

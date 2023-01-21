@@ -83,7 +83,13 @@ public class DataHandling {
         for(int i = 0; i < bookList.size(); i++) {
             if(bookList.get(i).getTitle().equals(book.getTitle())) {
                 bookList.get(i).getBorrowers().add(new BorrowingProcess(user, new Date()));
-                //bookList.get(i).
+                System.out.println("Size: "+bookList.get(i).getBorrowers().size());
+                System.out.println("Number available: "+bookList.get(i).getNumberAvailable());
+                if(bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
+                    bookList.get(i).setAvailable(true);
+                } else {
+                    bookList.get(i).setAvailable(false);
+                }
                 break;
             }
         }
