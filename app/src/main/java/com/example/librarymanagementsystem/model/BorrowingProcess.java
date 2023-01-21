@@ -27,7 +27,7 @@ public class BorrowingProcess implements Serializable {
         this.extensionCounter = 1;
     }
 
-    private int daysBetween(Date d1, Date d2){
+    public int daysBetween(Date d1, Date d2){
         return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 

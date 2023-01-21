@@ -93,7 +93,7 @@ public class AllBooksDetailsActivity extends AppCompatActivity {
             } else {
                 tvAvailable.setText("No");
                 tvAvailable.setBackgroundColor(Color.parseColor("#CC0000"));
-                tvAvailable.setTextColor(Color.parseColor("#000000"));
+                tvAvailable.setTextColor(Color.parseColor("#FFFFFF"));
             }
         }
     }

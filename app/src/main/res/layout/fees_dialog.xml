@@ -13,63 +13,79 @@
             android:backgroundTint="@color/grey"
             android:background="@drawable/custom_edittext">
 
-        <LinearLayout
-            android:id="@+id/addName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <GridLayout
+            <LinearLayout
+                android:id="@+id/addName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount="1"
-                android:columnCount="2"
-                android:layout_gravity="center_horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <TextView
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rowCount="1"
+                    android:columnCount="2"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="To be paid: "
+                        style="@style/TextViewStyleDialogs"/>
+
+                    <TextView
+                        android:id="@+id/tvFees"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        style="@style/TextViewStyleDialogs"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="Days too late: "
+                        style="@style/TextViewStyleDialogs"/>
+
+                    <TextView
+                        android:id="@+id/tvDays"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        style="@style/TextViewStyleDialogs"/>
+                </GridLayout>
+
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="To be paid: "
-                    style="@style/TextViewStyleDialogs"/>
-
-                <TextView
-                    android:id="@+id/tvFees"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textStyle="bold"
                     android:layout_gravity="center"
-                    style="@style/TextViewStyleDialogs"/>
-            </GridLayout>
+                    android:paddingTop="30dp"
+                    android:rowCount="1"
+                    android:columnCount="2">
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="30dp"
-                android:rowCount="1"
-                android:columnCount="2">
+                    <Button
+                        android:id="@+id/addButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:text="Pay" />
 
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:text="Pay" />
+                    <Button
+                        android:id="@+id/cancelButton"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel" />
 
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel" />
+                </GridLayout>
 
-            </GridLayout>
-
-        </LinearLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
     </ScrollView>
 </RelativeLayout>

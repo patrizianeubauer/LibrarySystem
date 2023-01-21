@@ -85,7 +85,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
                     if(bp.getUser().getId() == user.getId()) {
                         fees = bp.getFees();
-                        date = bp.getDateOfIssue();
+                        date = bp.getReturnDate();
                     }
                     break;
                 }
@@ -101,7 +101,7 @@ public class recyclerAdapterReturns extends RecyclerView.Adapter<recyclerAdapter
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
-        String sourceString = "Title: <b>"+newName+"</b><br>Borrowed on: <b>"+sdf.format(date)+"</b><br>Fees: <b>"+fees+"€</b>";
+        String sourceString = "Title: <b>"+newName+"</b><br>Return date: <b>"+sdf.format(date)+"</b><br>Fees: <b>"+fees+"€</b>";
         holder.nameText.setText(Html.fromHtml(sourceString));
     }
 
