@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity implements recyclerAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         bookList = new ArrayList<>();
+        helperList = new ArrayList<>();
         helperList.addAll(DataHandling.bookList);
 
         recyclerView = findViewById(R.id.recyclerView);

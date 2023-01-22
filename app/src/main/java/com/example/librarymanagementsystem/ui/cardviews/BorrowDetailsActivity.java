@@ -179,7 +179,6 @@ public class BorrowDetailsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
                 item = parent.getItemAtPosition(position).toString();
                 tvBorrower.setText(item);
-                DataHandling.setCurrentUser(DataHandling.getUser(item));
             }
 
             @Override
