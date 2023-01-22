@@ -23,7 +23,9 @@ import com.example.librarymanagementsystem.model.Book;
 import com.example.librarymanagementsystem.model.BorrowingProcess;
 import com.example.librarymanagementsystem.model.User;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReturnActivity extends AppCompatActivity implements recyclerAdapterReturns.DetailsListener {
 
@@ -33,7 +35,7 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
     private recyclerAdapterReturns adapter;
     private User user;
     private AlertDialog dialog;
-    private TextView tFees;
+    private TextView tFees, tDays;
     private View viewFeesDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
         builder.setTitle("Fees");
         viewFeesDialog = getLayoutInflater().inflate(R.layout.fees_dialog, null);
         tFees = viewFeesDialog.findViewById(R.id.tvFees);
+        tDays = viewFeesDialog.findViewById(R.id.tvDays);
         Button bAdd, bCancel;
         bAdd = viewFeesDialog.findViewById(R.id.addButton);
         bCancel = viewFeesDialog.findViewById(R.id.cancelButton);
@@ -144,6 +147,7 @@ public class ReturnActivity extends AppCompatActivity implements recyclerAdapter
                         bookList.get(i).removeABP(bp);
                         if (bp.getFees() > 0) {
                             tFees.setText(bp.getFees()+" €");
+                            tDays.setText(bp.daysBetween(bp.getReturnDate(), new Date())+"");
                             dialog.show();
                             if (bookList.get(i).getBorrowers().size() < bookList.get(i).getNumberAvailable()) {
                                 bookList.get(i).setAvailable(true);

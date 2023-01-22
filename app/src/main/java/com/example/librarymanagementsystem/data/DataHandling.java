@@ -25,7 +25,7 @@ public class DataHandling {
         User u2 = new User("lau", "Laura", "Hera", "hera.l@gmx.at", "Street4", "8020", "Graz", "12345");
 
         Calendar c3 = new GregorianCalendar(2022, 07, 21);
-        Calendar c4 = new GregorianCalendar(2023, 01, 06);
+        Calendar c4 = new GregorianCalendar(2022, 11, 20);
 
         BorrowingProcess bp1 = new BorrowingProcess(u1, c3.getTime());
         BorrowingProcess bp2 = new BorrowingProcess(u2, c4.getTime());
